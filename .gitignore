@@ -1,0 +1,23 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# next.js
+/.next/
+/out/
+
+# environment
+.env
+.env.local
+.env*.local
+
+# deployment and logs
+.vercel
+*.log
+
+# local development upload fallback
+/public/uploads/
+
+# typescript
+*.tsbuildinfo
