@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ComplaintMap } from "@/components/complaint-map";
 import { ResolutionEvidenceUpload, type ResolutionAttachment } from "@/components/resolution-evidence-upload";
 import { ComplaintStaffControls } from "@/components/complaint-staff-controls";
+import { ComplaintTimeline } from "@/components/complaint-timeline";
 import { formatDate } from "@/lib/utils";
 
 type Role = "CITIZEN" | "OFFICER" | "ADMIN";

@@ -6,6 +6,7 @@ import { AlertTriangle, BarChart3, Clock3, MapPinned, Star, Users } from "lucide
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Card } from "@/components/ui/card";
 import { ComplaintMap } from "@/components/complaint-map";
+import { ComplaintHeatmap } from "@/components/complaint-heatmap";
 import { ReportDownload } from "@/components/report-download";
 
 type Analytics = {
@@ -57,6 +58,21 @@ export function AdminDashboard() {
     </section>
 
     <ReportDownload role="ADMIN" />
+
+    {/* Interactive Heatmap */}
+    <section className="mt-7">
+      <Card className="overflow-hidden">
+        <div className="border-b border-slate-200 px-5 py-4">
+          <h2 className="font-extrabold text-ink">Complaint Heatmap</h2>
+          <p className="mt-1 text-sm text-slate-500">
+            Geographic visualization of complaints with filtering and interactive features.
+          </p>
+        </div>
+        <div className="p-5">
+          <ComplaintHeatmap />
+        </div>
+      </Card>
+    </section>
 
     <section className="mt-7 grid gap-7 xl:grid-cols-2">
       <ChartCard title="Complaint volume" subtitle="New reports in the last six months"><ResponsiveContainer width="100%" height={270}><LineChart data={trend}><CartesianGrid strokeDasharray="3 3" vertical={false} /><XAxis dataKey="label" /><YAxis allowDecimals={false} /><Tooltip /><Line type="monotone" dataKey="complaints" stroke="#087d73" strokeWidth={3} dot={{ r: 4 }} /></LineChart></ResponsiveContainer></ChartCard>

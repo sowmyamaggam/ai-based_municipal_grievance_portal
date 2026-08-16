@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { AlertCircle, CheckCircle2, Crosshair, FileText, ImagePlus, LoaderCircle, MapPin, X } from "lucide-react";
+import { AlertCircle, CheckCircle2, Crosshair, FileText, ImagePlus, LoaderCircle, MapPin, Mic, MicOff, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -33,7 +33,11 @@ export function NewComplaintForm() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState<{ number: string; duplicate: boolean } | null>(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const [voiceProcessing, setVoiceProcessing] = useState(false);
+  const [voiceLanguage, setVoiceLanguage] = useState<"en" | "te">("en");
   const inputRef = useRef<HTMLInputElement>(null);
+  const recognitionRef = useRef<any>(null);
 
   async function lookUpPlaceName(captured: CapturedLocation) {
     setFindingPlaceName(true);
@@ -159,12 +163,103 @@ export function NewComplaintForm() {
     }
   }
 
+  function startVoiceInput() {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setError("Voice input is not supported in your browser. Please use Chrome, Edge, or Safari.");
+      return;
+    }
+
+    if (!recognitionRef.current) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.language = voiceLanguage === "en" ? "en-US" : "te-IN";
+
+      recognition.onstart = () => {
+        setIsRecording(true);
+        setError("");
+      };
+
+      recognition.onresult = (event: any) => {
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            setDescription((prev) => (prev + " " + event.results[i][0].transcript).trim());
+          }
+        }
+      };
+
+      recognition.onerror = (event: any) => {
+        setError(`Voice input error: ${event.error}`);
+        setIsRecording(false);
+      };
+
+      recognition.onend = () => {
+        setIsRecording(false);
+      };
+
+      recognitionRef.current = recognition;
+    }
+
+    if (isRecording) {
+      recognitionRef.current.stop();
+      setIsRecording(false);
+    } else {
+      recognitionRef.current.start();
+    }
+  }
+
   return (
     <form onSubmit={submit} className="grid gap-7 xl:grid-cols-[1.35fr_.65fr]">
       <div className="space-y-7">
         <Card className="p-5 sm:p-7">
           <h2 className="text-lg font-extrabold text-ink">Describe the issue</h2>
           <p className="mt-1 text-sm text-slate-500">Include what happened, the exact landmark, and any safety risk.</p>
+          
+          {/* Voice Input Controls */}
+          <div className="mt-4 flex items-center gap-3">
+            <label className="text-sm font-medium text-slate-700">Use voice:</label>
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                value="en"
+                checked={voiceLanguage === "en"}
+                onChange={(e) => setVoiceLanguage(e.target.value as "en" | "te")}
+                disabled={isRecording}
+              />
+              <span className="text-sm">English</span>
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                value="te"
+                checked={voiceLanguage === "te"}
+                onChange={(e) => setVoiceLanguage(e.target.value as "en" | "te")}
+                disabled={isRecording}
+              />
+              <span className="text-sm">Telugu</span>
+            </label>
+            <Button
+              type="button"
+              variant="outline"
+              className="gap-2 px-3 py-1 text-xs"
+              onClick={startVoiceInput}
+              disabled={voiceProcessing}
+            >
+              {isRecording ? (
+                <>
+                  <MicOff className="h-4 w-4" />
+                  Stop Recording
+                </>
+              ) : (
+                <>
+                  <Mic className="h-4 w-4" />
+                  Start Recording
+                </>
+              )}
+            </Button>
+          </div>
+
           <label className="mt-5 block text-sm font-bold text-slate-700">
             What needs attention?
             <Textarea

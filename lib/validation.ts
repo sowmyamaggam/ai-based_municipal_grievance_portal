@@ -7,7 +7,7 @@ export const registerSchema = z.object({
   name: z.string().trim().min(2, "Enter your full name").max(80),
   email: z.string().trim().email("Enter a valid email address").toLowerCase(),
   password: z.string().min(8, "Password must have at least 8 characters").max(100),
-  phone: z.string().trim().max(20).optional(),
+  phone: z.string().trim().min(10, "Enter a valid mobile number").max(20),
 });
 
 export const profileSchema = z.object({

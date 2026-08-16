@@ -6,6 +6,7 @@ import { Complaint } from "@/models/Complaint";
 import { Notification } from "@/models/Notification";
 import { User } from "@/models/User";
 import { notifyAssignmentDecision, sendAssignmentNotifications } from "@/lib/assignment";
+import { queueWhatsAppNotification, notifyStatusChanged, notifyComplaintAssigned } from "@/lib/whatsapp-notifications";
 
 async function getAuthorizedComplaint(id: string, user: { id: string; role: "CITIZEN" | "OFFICER" | "ADMIN" }) {
   const complaint = await Complaint.findById(id).populate("citizen", "name email phone").populate("assignedOfficer", "name email department");
@@ -77,6 +78,18 @@ export async function PATCH(request: Request, context: { params: Promise<{ id: s
           officerName: access.user.name,
           decision: data.assignmentDecision,
         });
+        // Send WhatsApp notification
+        if (citizenId) {
+          queueWhatsAppNotification({
+            type: accepted ? "COMPLAINT_ASSIGNED" : "STATUS_CHANGED",
+            complaintId: complaint._id,
+            complaintNumber: complaint.complaintNumber,
+            citizenId: citizenId as any,
+            data: accepted
+              ? { officerName: access.user.name }
+              : { newStatus: accepted ? "IN_PROGRESS" : "SUBMITTED" },
+          });
+        }
       } catch {
         // The decision is already durable; notification delivery can recover
         // independently and must not make the officer think it failed.
@@ -118,6 +131,16 @@ export async function PATCH(request: Request, context: { params: Promise<{ id: s
     const updated = await Complaint.findByIdAndUpdate(complaint._id, { $set: set, $push: { history: { $each: history } } }, { new: true }).populate("citizen", "name email").populate("assignedOfficer", "name email department");
     if (assignmentChanged && data.assignedOfficer) {
       await sendAssignmentNotifications({ complaintId: complaint._id.toString(), complaintNumber: complaint.complaintNumber, officerId: data.assignedOfficer, citizenId, previousOfficerId: currentOfficerId });
+      // Send WhatsApp notification for assignment
+      if (citizenId) {
+        queueWhatsAppNotification({
+          type: "COMPLAINT_ASSIGNED",
+          complaintId: complaint._id,
+          complaintNumber: complaint.complaintNumber,
+          citizenId: citizenId as any,
+          data: { officerName: access.user.name },
+        });
+      }
     } else if (assignmentChanged && currentOfficerId) {
       await Promise.allSettled([
         Notification.create({ user: currentOfficerId, complaint: complaint._id, title: "Work unassigned", message: `${complaint.complaintNumber} is no longer assigned to you.` }),
@@ -126,6 +149,14 @@ export async function PATCH(request: Request, context: { params: Promise<{ id: s
     } else if (data.status !== undefined && data.status !== complaint.status && citizenId) {
       const resolved = ["RESOLVED", "CLOSED"].includes(data.status);
       await Promise.allSettled([Notification.create({ user: citizenId, complaint: complaint._id, kind: resolved ? "COMPLAINT_RESOLVED" : "STATUS_UPDATED", title: resolved ? "Issue resolved" : "Complaint status updated", message: resolved ? `${complaint.complaintNumber} has been resolved by the municipal team.` : `${complaint.complaintNumber} is now ${data.status.replaceAll("_", " ").toLowerCase()}.` })]);
+      // Send WhatsApp notification for status change
+      queueWhatsAppNotification({
+        type: resolved ? "RESOLVED" : "STATUS_CHANGED",
+        complaintId: complaint._id,
+        complaintNumber: complaint.complaintNumber,
+        citizenId: citizenId as any,
+        data: { newStatus: data.status, remarks: data.remarks },
+      });
     }
     return NextResponse.json({ complaint: updated });
   } catch (error) {

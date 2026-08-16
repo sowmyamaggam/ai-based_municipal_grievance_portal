@@ -1,1030 +1,633 @@
-CivicGuard AI — New Features Specification
+# CivicGuard AI — Advanced Features
 
-1. Purpose
+## Project Context
 
-This document defines the advanced features to be added to the existing CivicGuard AI AI-Based Municipal Grievance Portal.
+CivicGuard AI is an AI-powered municipal grievance management platform designed to allow citizens to submit complaints and help municipal administrators efficiently manage, prioritize, assign, track, and resolve those complaints.
 
-The existing project already provides:
+The project uses:
 
-Citizen registration and login
+* **Frontend:** Next.js
+* **Backend:** Next.js server-side APIs / API routes
+* **Database:** MongoDB Atlas
+* **AI:** Google Gemini `gemini-2.5-flash`
+* **Maps:** Interactive map with geolocation and heatmap support
+* **Messaging:** Meta WhatsApp Business Platform
+* **Voice:** Speech-to-Text
+* **Authentication:** Role-based authentication for citizens, officers, and administrators
 
-Complaint registration
+The following features must be implemented as production-ready modules and integrated into the existing application without breaking existing functionality.
 
-Photo/document upload
+---
 
-GPS-based complaint location
+# 1. WhatsApp Integration
 
-Gemini multimodal AI
+Integrate CivicGuard AI with the **Meta WhatsApp Business Platform** so citizens can interact with the grievance system through WhatsApp.
 
-AI complaint classification
+## Citizen Capabilities
 
-AI department classification
+Citizens should be able to:
 
-AI priority detection
+* Start a conversation with the CivicGuard WhatsApp number.
+* Register a new complaint.
+* Provide complaint description.
+* Provide complaint category.
+* Share their location when supported.
+* Upload/send complaint images through WhatsApp.
+* Receive a generated complaint ID.
+* Check the status of an existing complaint.
+* Request complaint details using the complaint ID.
+* Receive updates about their complaint.
 
-AI image analysis
-
-AI sentiment analysis
-
-AI complaint summarization
-
-Duplicate/related complaint detection
-
-Officer and Admin dashboards
-
-Complaint tracking
-
-Maps and hotspot analytics
-
-AI chatbot
-
-Notifications
-
-Feedback and ratings
-
-The new features below should extend the existing architecture without unnecessarily changing the core technology stack.
-
-1. WhatsApp Integration
-
-2.1 WhatsApp Notifications
-
-Integrate CivicGuard AI with the Meta WhatsApp Business Platform / WhatsApp Cloud API.
-
-Citizens should receive WhatsApp notifications when:
-
-Complaint is registered
-
-Officer is assigned
-
-Complaint status changes
-
-Complaint is resolved
-
-Complaint is closed
-
-Complaint is reopened
-
-Complaint is escalated
-
-A critical/emergency complaint is detected
+## Complaint Registration Flow
 
 Example:
 
-Complaint Registered
-
-Complaint ID: CG-2026-00125
-Category: Streetlight
-Department: Electrical
-Priority: Medium
-Status: Submitted
-
-Use approved WhatsApp message templates for business-initiated notifications where required.
-
-2.2 WhatsApp AI Chatbot
-
-Allow citizens to communicate with CivicGuard AI through WhatsApp.
-
-Examples:
-
-"What is the status of my complaint?"
-
-"Show my active complaints."
-
-"How do I register a complaint?"
-
-"Which department handles garbage?"
-
-"Complaint CG-2026-00125 status?"
-
-Flow:
-
+```text
 Citizen
-  ↓
-WhatsApp
-  ↓
-Meta WhatsApp Cloud API
-  ↓
-Next.js Webhook
-  ↓
-Authenticate / identify citizen
-  ↓
-MongoDB
-  ↓
-Gemini 2.5 Flash when AI understanding is required
-  ↓
-WhatsApp response
+   ↓
+WhatsApp Message
+   ↓
+CivicGuard WhatsApp Webhook
+   ↓
+Validate User
+   ↓
+Collect Complaint Information
+   ↓
+AI Classification
+   ↓
+Create Complaint in MongoDB
+   ↓
+Generate Complaint ID
+   ↓
+Send Confirmation through WhatsApp
+```
 
-Never reveal another citizen's private information.
+## WhatsApp Webhook
 
-Complaint-specific information must only be returned after verifying the citizen's identity and complaint ownership.
+Implement a secure webhook endpoint for receiving WhatsApp events.
 
-2.3 WhatsApp Architecture
+The webhook should:
 
-Use server-side environment variables:
+* Verify Meta webhook requests.
+* Receive incoming WhatsApp messages.
+* Identify the sender.
+* Process text messages.
+* Handle image/media messages where supported.
+* Handle location messages where supported.
+* Connect messages to existing citizen accounts where possible.
+* Store relevant conversation information.
+* Trigger the appropriate complaint workflow.
 
-WHATSAPP_ACCESS_TOKEN=...
-WHATSAPP_PHONE_NUMBER_ID=...
-WHATSAPP_BUSINESS_ACCOUNT_ID=...
-WHATSAPP_VERIFY_TOKEN=...
+Do not expose Meta access tokens or secrets in frontend code.
 
-Never expose WhatsApp credentials to the browser.
+Store sensitive configuration in environment variables.
 
-Create a Next.js webhook endpoint for Meta webhook verification and incoming WhatsApp events.
+Example environment variables:
 
-2. Live Complaint Heatmap
+```env
+WHATSAPP_ACCESS_TOKEN=
+WHATSAPP_PHONE_NUMBER_ID=
+WHATSAPP_BUSINESS_ACCOUNT_ID=
+WHATSAPP_VERIFY_TOKEN=
+WHATSAPP_APP_SECRET=
+```
 
-Improve the existing complaint hotspot map into an interactive live complaint heatmap.
+Do not hardcode these values.
 
-The map should support:
+---
 
-Complaint clustering
+# 2. WhatsApp Notifications
 
-Priority filtering
+Implement automatic WhatsApp notifications for important complaint events.
 
-Category filtering
+Citizens should receive notifications when:
 
-Department filtering
+* Complaint is successfully registered.
+* Complaint ID is generated.
+* Complaint is assigned to an officer.
+* Complaint status changes.
+* Officer adds an update.
+* Complaint requires additional information.
+* Complaint is resolved.
+* Complaint is reopened.
+* Complaint approaches its SLA deadline.
+* Complaint exceeds its SLA deadline.
 
-Status filtering
+## Example Notification Flow
 
-Date-range filtering
-
-Ward/area filtering
-
-Nearby complaint search
-
-Visual indicators can represent:
-
-Critical
-
-High
-
-Medium
-
-Low
-
-Resolved
-
-Pending
-
-Example:
-
-Complaint Data
-      ↓
-GPS Coordinates
-      ↓
-MongoDB Geospatial Search
-      ↓
-Map Clustering / Heatmap
-      ↓
-Admin Visualization
-
-Do not expose unnecessary citizen personal information on public maps.
-
-3. AI Root-Cause Detection
-
-Add an AI feature that identifies recurring municipal problems instead of treating every complaint as an isolated event.
-
-Example:
-
-47 complaints
-      ↓
-GPS clustering
-      ↓
-Category analysis
-      ↓
-Time analysis
-      ↓
-Complaint similarity
-      ↓
-Gemini analysis
-      ↓
-Possible Root Cause
-
-Example output:
-
-Possible Root Cause: Blocked drainage system affecting multiple streets in Ward 12.
-
-The system should display:
-
-Number of related complaints
-
-Affected area
-
-Main category
-
-Time period
-
-Possible underlying issue
-
-Confidence
-
-Related complaint IDs
-
-AI root-cause detection is advisory and should not automatically make authoritative municipal decisions.
-
-4. Smart Escalation Engine
-
-Implement configurable automatic escalation.
-
-Example:
-
-Critical Complaint
+```text
+Complaint Updated
        ↓
-Officer assigned
+Backend Event
        ↓
-No action within configured period
+Check Citizen WhatsApp Availability
        ↓
-Supervisor escalation
+Generate Notification
        ↓
-Still unresolved
+WhatsApp Business API
        ↓
-Admin escalation
+Citizen Receives Notification
+```
 
-Escalation rules should be configurable.
+Notifications should contain useful information such as:
 
-Possible rules:
+* Complaint ID
+* Current status
+* Category
+* Important update
+* Timestamp
+* Next action where applicable
 
-Critical complaint unanswered for 2 hours
+Avoid sending unnecessary notifications.
 
-High priority complaint unanswered for 12 hours
+Respect WhatsApp messaging/template requirements.
 
-Medium priority complaint exceeds SLA
+Provide proper error handling when WhatsApp delivery fails.
 
-Complaint reopened multiple times
+The complaint operation itself must not fail simply because a WhatsApp notification could not be delivered.
 
-Citizen reports the same issue repeatedly
+---
 
-Record every escalation in complaint history.
+# 3. Live Complaint Heatmap
 
-5. SLA / Resolution Deadline Management
+Implement an interactive complaint heatmap for administrators.
 
-Assign a target resolution time based on priority.
+The heatmap should visually represent the geographical concentration of complaints.
 
-Example defaults:
+## Requirements
 
-Priority
+Display complaints based on their geographic coordinates.
 
-Target
+Each complaint should be associated with:
 
-CRITICAL
+* Latitude
+* Longitude
+* Category
+* Priority
+* Status
+* Created date
+* Area/location
 
-4 hours
+## Heatmap Capabilities
 
-HIGH
+Administrators should be able to:
 
-24 hours
+* View complaint density on a map.
+* Zoom in and out.
+* Pan around the map.
+* Identify complaint hotspots.
+* Filter complaints by category.
+* Filter by priority.
+* Filter by status.
+* Filter by date range.
+* View individual complaint markers.
+* Click a marker to view basic complaint information.
 
-MEDIUM
+## Example Categories
 
-3 days
+* Roads
+* Water Supply
+* Garbage/Sanitation
+* Street Lights
+* Drainage
+* Public Safety
+* Electricity
+* Environment
+* Other
 
-LOW
+## Heatmap Visualization
 
-7 days
+Use higher intensity areas to represent a greater concentration of complaints.
 
-SLA values must be configurable rather than hardcoded throughout the application.
+The system should not expose unnecessary personal information on the public map.
 
-Show:
+Administrators should have access to appropriate complaint details based on their role.
 
-SLA deadline
+## Location Handling
 
-Remaining time
+When a citizen provides location:
 
-SLA status
-
-SLA breach warning
-
-SLA breached indicator
-
-Example:
-
-CRITICAL
-Sewage Overflow
-
-SLA: 4 hours
-Remaining: 1h 32m
-Status: At Risk
-
-6. AI Emergency Detection
-
-Add a dedicated emergency detection capability.
-
-Examples:
-
-Flood water entering houses
-
-Fallen electrical pole
-
-Dangerous exposed electrical wiring
-
-Major road obstruction
-
-Serious sewage overflow
-
-Other potentially dangerous public-safety situations
-
-Flow:
-
-Complaint Text + Image + Location
-              ↓
-       Gemini Analysis
-              ↓
-       Emergency Detection
-              ↓
-      Critical Alert
-              ↓
-Officer + Supervisor + Admin
-
-Emergency detection must be treated as an AI prediction and should support human review.
-
-Deterministic application rules should also be used for clearly defined safety-critical conditions where appropriate.
-
-7. Before/After AI Resolution Verification
-
-When an officer resolves a complaint, allow them to upload resolution evidence.
-
-For image-based complaints, compare:
-
-Before Image
-     +
-After Image
-     ↓
-Gemini Multimodal Analysis
-     ↓
-Resolution Verification
-
-Example:
-
-Issue detected before: YES
-Visible improvement: YES
-Likely resolved: 92%
-
-Display:
-
-Before image
-
-After image
-
-AI verification result
-
-Confidence
-
-Officer remarks
-
-AI verification must not be treated as guaranteed truth. Authorized users should be able to review and override the result.
-
-8. Citizen Issue Clustering
-
-Extend duplicate detection into underlying issue clustering.
-
-Instead of only marking complaints as duplicates, create an issue cluster:
-
-Issue #INC-1024
-
-47 citizen reports
-       ↓
-Same/similar location
-Similar category
-Similar descriptions
-Similar images
-       ↓
-Underlying municipal issue
-
-Each original citizen complaint must remain preserved.
-
-The system should show:
-
-Issue cluster ID
-
-Related complaint IDs
-
-Number of citizens affected
-
+```text
 Location
-
-Category
-
-Current status
-
-Priority
-
-Assigned department
-
-Resolution status
-
-Do not automatically delete or reject complaints because they appear duplicated.
-
-9. Predictive Complaint Analytics
-
-Add predictive analytics based on historical complaint data.
-
-Example:
-
-Historical Complaints
-        ↓
-Trend Analysis / ML
-        ↓
-Prediction
-
-Possible predictions:
-
-Expected complaint volume
-
-Likely recurring categories
-
-Potential hotspot growth
-
-Expected workload
-
-Areas at risk of repeated complaints
-
-Example:
-
-Ward 8 has a high probability of increased garbage complaints next week based on recent complaint trends.
-
-Predictions must be clearly labeled as forecasts rather than facts.
-
-10. AI Officer Copilot
-
-Add an AI assistant specifically for municipal officers.
-
-When an officer opens a complaint, show:
-
-AI Officer Copilot
-
-Summary:
-Large pothole near college gate.
-
-Priority:
-HIGH
-
-Department:
-Roads
-
-Related complaints:
-7
-
-Nearby complaints:
-4
-
-Recommended action:
-Inspect and repair the road surface.
-
-Suggested citizen response:
-Road repair team has been assigned...
-
-The Officer Copilot can help with:
-
-Complaint summaries
-
-Related complaint discovery
-
-Recommended actions
-
-Drafting citizen responses
-
-Explaining AI classification
-
-Identifying missing information
-
-Preparing resolution summaries
-
-The officer remains responsible for final decisions.
-
-11. Natural Language AI Search
-
-Allow authorized officers/admins to search the complaint database using natural language.
-
-Examples:
-
-Show unresolved garbage complaints near Ward 5.
-
-Show critical complaints within 500 meters of this location.
-
-Which department has the most unresolved complaints?
-
-Flow:
-
-Natural Language Query
-        ↓
-Gemini
-        ↓
-Structured Query
-        ↓
-Authorization Check
-        ↓
-MongoDB
-        ↓
-Results
-
-Never allow Gemini to bypass authorization.
-
-All generated database filters must be validated before execution.
-
-12. Voice Complaint Registration
-
-Add voice-based complaint registration.
-
-Flow:
-
-Citizen speaks
-      ↓
-Speech-to-text
-      ↓
-Complaint text
-      ↓
-Gemini 2.5 Flash
-      ↓
-Category / Department / Priority
-      ↓
-Complaint registration
-
-Example:
-
-"మా వీధిలో మూడు రోజులుగా నీళ్లు రావడం లేదు."
-
-The system can identify:
-
-Category: Water Supply
-Department: Water Department
-Priority: HIGH
-
-The voice feature should remain optional.
-
-13. Telugu + English Multilingual Support
-
-Add bilingual support for:
-
-English
-
-Telugu
-
-The architecture should allow additional languages later.
-
-Citizens should be able to:
-
-Use the interface in Telugu
-
-Submit complaints in Telugu
-
-Submit complaints in English
-
-Receive notifications in their preferred language
-
-Interact with the AI chatbot in Telugu or English
-
-Receive WhatsApp notifications in their preferred language
-
-Example:
-
-Citizen:
-"మా వీధిలో మూడు రోజులుగా నీళ్లు రావడం లేదు."
-
-AI:
-Category → Water Supply
-Department → Water Department
-Priority → HIGH
-
-Store the citizen's preferred language.
-
-14. Progressive Web App (PWA)
-
-Make the Next.js application installable as a PWA.
-
-Citizens should be able to:
-
-Browser
    ↓
-Add to Home Screen
+Validate Coordinates
    ↓
-CivicGuard AI
+Store Latitude/Longitude
+   ↓
+Associate with Complaint
+   ↓
+Display on Admin Map
+```
+
+If location is unavailable, the complaint should still be accepted.
+
+Do not make location mandatory unless the existing application explicitly requires it.
+
+---
+
+# 4. Voice Complaint Registration
+
+Allow citizens to register complaints using their voice.
+
+The feature should support voice input and convert speech into structured complaint information.
+
+## Voice Flow
+
+```text
+Citizen Speaks
+      ↓
+Audio Input
+      ↓
+Speech-to-Text
+      ↓
+Transcribed Text
+      ↓
+AI Processing
+      ↓
+Extract Complaint Information
+      ↓
+Citizen Confirmation
+      ↓
+Create Complaint
+```
+
+## Voice Features
+
+The system should:
+
+* Provide a microphone button.
+* Record voice input.
+* Convert speech to text.
+* Display the generated transcript.
+* Allow citizens to review/edit the transcript.
+* Detect complaint category using AI.
+* Detect complaint priority where appropriate.
+* Extract relevant information.
+* Ask for confirmation before final submission.
 
 Support:
 
-Mobile-friendly interface
+* English
+* Telugu
 
-Installable application experience
+The implementation should be designed so additional languages can be added later.
 
-Responsive layouts
+## AI Processing
 
-Appropriate offline/poor-network states
+Use the existing Gemini integration where appropriate.
 
-Push notification readiness where supported
+The AI may extract structured information such as:
 
-Do not create a separate Android/iOS application unless there is a strong requirement.
+```json
+{
+  "description": "There is a large amount of garbage near the main road",
+  "category": "Garbage/Sanitation",
+  "priority": "Medium",
+  "locationDescription": "Near the main road"
+}
+```
 
-15. AI-Powered Complaint Recommendations
+Do not automatically submit a complaint based solely on uncertain AI interpretation.
 
-When a citizen begins entering a complaint, provide helpful suggestions.
+The citizen should be able to confirm or modify the extracted information before submission.
 
-Example:
+If speech-to-text fails, provide a clear fallback to normal text complaint registration.
 
-Citizen types:
+---
 
-"Garbage has not..."
+# 5. Complaint Timeline Visualization
 
-System suggests:
+Implement a visual timeline for every complaint.
 
-Garbage not collected
-Garbage accumulation
-Public waste dumping
+The timeline should show the complete lifecycle of a complaint.
 
-The system can also suggest:
+## Example
 
-Appropriate category
+```text
+Complaint Registered
+        ↓
+AI Classified
+        ↓
+Complaint Reviewed
+        ↓
+Assigned to Officer
+        ↓
+Officer Accepted
+        ↓
+Investigation Started
+        ↓
+Action Taken
+        ↓
+Resolved
+        ↓
+Citizen Feedback
+```
 
-Relevant department
+The actual timeline must be generated from real complaint events stored in MongoDB.
 
-Required evidence/photo
+## Timeline Events
 
-Location capture
+Possible events include:
 
-The citizen must remain in control of the final submission.
-
-16. Similar Complaint Suggestions During Submission
-
-When the citizen enters a new complaint:
-
-Complaint Text
-      +
-GPS
-      ↓
-Nearby Complaints
-      ↓
-Similarity Analysis
-      ↓
-Possible Related Complaints
-
-Show:
-
-We found 3 similar complaints nearby.
-
-Provide the option to:
-
-View related issue
-
-Continue submitting
-
-Link to the issue where appropriate
-
-Never prevent the citizen from submitting.
-
-17. Complaint Timeline Visualization
-
-Improve the citizen complaint page with a visual timeline:
-
-● Submitted
-│
-● AI Analysis Completed
-│
-● Department Assigned
-│
-● Officer Assigned
-│
-● Investigation Started
-│
-● Resolution Submitted
-│
-● Resolved
-│
-● Citizen Feedback
+* Complaint created
+* Complaint classified
+* Priority changed
+* Complaint assigned
+* Officer accepted
+* Officer added comment
+* Evidence uploaded
+* Status changed
+* Investigation started
+* Action taken
+* Complaint resolved
+* Citizen provided feedback
+* Complaint reopened
+* Complaint closed
 
 Each event should contain:
 
-Timestamp
+* Event type
+* Date
+* Time
+* Status
+* Description
+* Actor/role where appropriate
+* Relevant remarks
+* Optional attachments/evidence
 
-Actor where appropriate
+## Timeline UI
 
-Status
+Use a clean vertical timeline.
 
-Short description
+Clearly distinguish:
 
-Remarks where appropriate
+* Completed events
+* Current state
+* Pending stages
 
-18. Resolution Evidence Gallery
+The timeline should work on both desktop and mobile devices.
 
-For resolved complaints, display:
+Citizens should see only information appropriate to their role.
 
-Before
-  ↓
-Investigation
-  ↓
-Work in Progress
-  ↓
-After
+Administrators and authorized officers may see additional internal information.
 
-Allow authorized officers to upload:
+---
 
-Before photos
+# Integration Requirements
 
-Work-progress photos
+All five features must integrate with the existing CivicGuard AI application.
 
-Final-resolution photos
+Do not create isolated demo pages that are disconnected from the real application.
 
-Resolution documents
+Use the existing:
 
-Use external object storage for files and MongoDB for metadata.
+* Authentication system
+* MongoDB database
+* Complaint model/schema
+* User model
+* Role system
+* AI service
+* API architecture
+* UI components
+* Design system
 
-19. Citizen Satisfaction Intelligence
+Before implementing anything, inspect the existing project and understand the current architecture.
 
-Use citizen ratings and feedback to generate service-quality insights.
+Do not unnecessarily rewrite working functionality.
 
-Existing feedback includes 1–5 ratings and written feedback.
+---
 
-Add:
+# Database Requirements
 
-Average satisfaction
+Extend the existing MongoDB schemas only when required.
 
-Department satisfaction
+Complaint records should support information required by the new features, including where applicable:
 
-Category satisfaction
+```text
+complaintId
+citizenId
+description
+category
+priority
+status
+latitude
+longitude
+location
+images
+createdAt
+updatedAt
+assignedOfficer
+timeline/events
+```
 
-Ward satisfaction
+WhatsApp-related information should be stored separately or in an appropriate existing user/communication model.
 
-Monthly satisfaction trend
+Do not store sensitive API credentials in MongoDB.
 
-Low-rating complaint analysis
+Use environment variables for secrets.
 
-Gemini can summarize written feedback:
+---
 
-Citizens are generally satisfied with road repair speed but frequently mention delays in garbage collection.
+# AI Requirements
 
-Do not allow AI-generated summaries to replace the original feedback.
+Use the project's existing Gemini integration.
 
-20. Smart Notification Center
+Model:
 
-Create a unified notification center inside CivicGuard AI.
+```text
+gemini-2.5-flash
+```
 
-Notifications can originate from:
+Use AI only where it provides meaningful value, especially:
 
-Complaint status
+* Complaint classification
+* Voice transcript understanding
+* Category extraction
+* Priority suggestions
+* Structured complaint extraction
 
-Assignment
+AI output must be validated before being stored in the database.
 
-Escalation
+Do not allow malformed AI output to break complaint registration.
 
-SLA warning
+Use structured JSON responses where appropriate.
 
-Resolution
+Provide fallback behavior when the AI service is unavailable.
 
-Feedback request
+---
 
-WhatsApp
+# Security Requirements
 
-Email
+Implement reasonable security without unnecessarily overengineering the project.
 
-Push notifications
+Requirements:
 
-Design the notification system so future channels can be added without major architectural changes.
+* Never expose API keys in frontend code.
+* Store secrets in environment variables.
+* Validate webhook requests.
+* Validate uploaded files.
+* Validate coordinates.
+* Validate user permissions.
+* Protect admin-only heatmap functionality.
+* Prevent unauthorized access to complaints.
+* Sanitize user-generated content.
+* Do not expose private citizen information through public maps.
+* Handle WhatsApp webhook authentication correctly.
 
-21. Admin AI Command Center
+---
 
-Create a dedicated AI section in the Admin Dashboard.
+# Error Handling
 
-Example:
+Every feature must have proper error handling.
 
-AI MUNICIPAL COMMAND CENTER
+Examples:
 
-Today's Overview
+### WhatsApp failure
 
-1,248 Total Complaints
-   183 Active
-    21 Critical
-    94 SLA At Risk
+If WhatsApp is unavailable:
 
-AI Insights
-────────────────────────
-⚠ Garbage complaints +32%
-⚠ Ward 8 drainage hotspot
-⚠ 7 critical complaints awaiting action
+```text
+Complaint creation → SUCCESS
+WhatsApp notification → FAILED
+```
 
-Recommended Actions
-────────────────────────
-→ Assign 2 additional sanitation officers
-→ Inspect Ward 8 drainage
-→ Review 7 critical complaints
+The complaint must remain successfully stored.
 
-This can become the main demonstration screen during your final-year project presentation.
+### AI failure
 
-22. Recommended Final Feature Priority
+If Gemini is unavailable:
 
-Must Have
+```text
+AI classification → FAILED
+Fallback → Manual category selection
+```
 
-WhatsApp notifications
+### Voice failure
 
-Complaint lifecycle
+If speech recognition fails:
 
-GPS complaint tracking
+```text
+Voice recognition → FAILED
+Fallback → Text complaint form
+```
 
-Gemini multimodal AI
+### Location failure
 
-Duplicate/related complaint detection
+If GPS/location is unavailable:
 
-Officer dashboard
+```text
+Location → UNAVAILABLE
+Complaint → Still allowed
+```
 
-Admin dashboard
+The user should always receive a clear and useful error message.
 
-Citizen tracking
+---
 
-Feedback
+# UI/UX Requirements
 
-Analytics
+Maintain a professional civic/government-style interface.
 
-High-Value Advanced Features
+The UI should be:
 
-WhatsApp AI chatbot
+* Clean
+* Responsive
+* Accessible
+* Mobile-friendly
+* Easy for non-technical citizens
+* Consistent with the existing CivicGuard AI design
 
-AI Officer Copilot
+Use clear labels and meaningful icons.
 
-Before/After resolution verification
+Provide loading states for:
 
-Smart SLA engine
+* Voice processing
+* AI processing
+* WhatsApp operations
+* Map loading
+* Timeline loading
 
-Automatic escalation
+Provide success and error notifications.
 
-Emergency detection
+Do not introduce unnecessary UI complexity.
 
-AI root-cause detection
+---
 
-Ward intelligence
+# Testing Requirements
 
-Live complaint heatmap
+Test each feature independently and as part of the complete application.
 
-AI municipal insights
+## WhatsApp
 
-Differentiating Features
+Test:
 
-Telugu + English
+* Webhook verification
+* Incoming messages
+* Complaint registration
+* Complaint status lookup
+* Media handling
+* Invalid messages
+* Notification failures
 
-Voice complaints
+## Heatmap
 
-Natural-language admin search
+Test:
 
-Predictive complaint analytics
+* Valid coordinates
+* Missing coordinates
+* Multiple complaints
+* Category filtering
+* Status filtering
+* Date filtering
+* Map interaction
 
-Issue clustering
+## Voice
 
-AI Command Center
+Test:
 
-Smart notification center
+* English speech
+* Telugu speech
+* Clear speech
+* Poor transcription
+* AI extraction failure
+* Manual correction
+* Confirmation flow
 
-PWA support
+## Timeline
 
-23. Final Demonstration Flow
+Test:
 
-The complete final-year project demonstration should work like this:
+* New complaint
+* Status changes
+* Officer assignment
+* Resolution
+* Reopening
+* Multiple events
+* Unauthorized access
 
-Citizen Registration
-        ↓
-Login
-        ↓
-Citizen Dashboard
-        ↓
-Submit Complaint
-        ↓
-Text + Photo + GPS
-        ↓
-Gemini 2.5 Flash
-        ↓
-Classification
-        ↓
-Image Analysis
-        ↓
-Priority Detection
-        ↓
-Sentiment
-        ↓
-Summary
-        ↓
-Nearby Complaint Search
-        ↓
-Duplicate / Issue Clustering
-        ↓
-Department Assignment
-        ↓
-WhatsApp Confirmation
-        ↓
-Officer Dashboard
-        ↓
-Officer Copilot
-        ↓
-SLA Monitoring
-        ↓
-Officer Resolution
-        ↓
-Before/After AI Verification
-        ↓
-WhatsApp Resolution Notification
-        ↓
-Citizen Feedback
-        ↓
-Admin Analytics
-        ↓
-AI Municipal Insights
-        ↓
-Hotspot / Ward Intelligence
-        ↓
-Predictive Analysis
+---
 
-24. Engineering Rules
+# Important Development Rules
 
-All new features must continue following the existing CivicGuard AI architecture.
+1. First inspect the existing project architecture.
+2. Reuse existing components and APIs wherever possible.
+3. Do not remove existing features.
+4. Do not break existing authentication.
+5. Do not replace MongoDB Atlas.
+6. Do not replace Next.js.
+7. Continue using Gemini `gemini-2.5-flash`.
+8. Do not hardcode API credentials.
+9. Do not create fake WhatsApp functionality when real integration can be implemented.
+10. Keep external integrations configurable through environment variables.
+11. Make features modular and maintainable.
+12. Use proper loading, success, and error states.
+13. Ensure mobile responsiveness.
+14. Validate all AI-generated data before database insertion.
+15. Keep citizen, officer, and administrator permissions separate.
+16. Do not expose sensitive citizen information through the heatmap.
+17. Preserve all existing functionality.
+18. Before modifying a file, inspect its current implementation.
+19. Avoid unnecessary dependency installation.
+20. After implementation, test the complete application and fix integration issues.
 
-Use:
-
-Next.js 15+
-
-React 19+
-
-TypeScript
-
-App Router
-
-Tailwind CSS
-
-shadcn/ui
-
-MongoDB Atlas
-
-Mongoose
-
-Zod
-
-Gemini gemini-2.5-flash
-
-Leaflet
-
-React Leaflet
-
-Recharts
-
-Cloudinary or equivalent object storage
-
-Vercel
-
-GitHub
-
-AI and database operations must remain server-side.
-
-Do not expose:
-
-Gemini API keys
-
-MongoDB credentials
-
-WhatsApp access tokens
-
-Private citizen data
-
-Unauthorized GPS data
-
-Use server-side authorization for every protected operation.
-
-Do not trust:
-
-Client-provided roles
-
-Client-provided complaint ownership
-
-Client-provided AI results
-
-Client-provided priority
-
-Client-provided department
-
-AI failures must never cause complaint loss.
-
-New features should extend the existing architecture rather than introducing unnecessary microservices or separate backends.
-
-25. Core Innovation After New Features
-
-CivicGuard AI should be presented as:
-
-A Multimodal, GPS-Aware, AI-Powered, WhatsApp-Enabled Municipal Grievance Intelligence Platform.
-
-Its core intelligence combines:
-
-Complaint Text
-      +
-Images
-      +
-GPS
-      +
-Existing Complaints
-      +
-Semantic Similarity
-      +
-Gemini Multimodal AI
-      +
-Historical Data
-      +
-Municipal Rules
-      ↓
-Intelligent Grievance Management
-
-The system should not only receive complaints.
-
-It should:
-
-Understand → Classify → Prioritize → Cluster → Assign → Monitor → Escalate → Verify → Resolve → Notify → Learn from Feedback → Predict Recurring Problem
+ 
