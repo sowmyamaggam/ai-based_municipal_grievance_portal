@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-const required = ["MONGODB_URI", "SEED_ADMIN_EMAIL", "SEED_ADMIN_PASSWORD"];
+const required = ["MONGODB_URI", "SEED_ADMIN_PHONE", "SEED_ADMIN_EMAIL", "SEED_ADMIN_PASSWORD"];
 const missing = required.filter((key) => !process.env[key]);
 if (missing.length) {
   console.error(`Missing required environment values: ${missing.join(", ")}`);
@@ -14,11 +14,11 @@ const departments = mongoose.connection.collection("departments");
 const passwordHash = await bcrypt.hash(process.env.SEED_ADMIN_PASSWORD, 12);
 const now = new Date();
 await users.updateOne(
-  { email: process.env.SEED_ADMIN_EMAIL.toLowerCase() },
-  { $set: { name: process.env.SEED_ADMIN_NAME || "Municipal Portal Administrator", email: process.env.SEED_ADMIN_EMAIL.toLowerCase(), passwordHash, role: "ADMIN", active: true, updatedAt: now }, $setOnInsert: { createdAt: now } },
+  { phone: process.env.SEED_ADMIN_PHONE },
+  { $set: { name: process.env.SEED_ADMIN_NAME || "Municipal Portal Administrator", email: process.env.SEED_ADMIN_EMAIL.toLowerCase(), phone: process.env.SEED_ADMIN_PHONE, passwordHash, role: "ADMIN", active: true, updatedAt: now }, $setOnInsert: { createdAt: now } },
   { upsert: true }
 );
-console.log(`Administrator ready: ${process.env.SEED_ADMIN_EMAIL}`);
+console.log(`Administrator ready for email sign-in: ${process.env.SEED_ADMIN_EMAIL}`);
 const defaultDepartments = [
   ["Roads Department", ["Road Damage", "Infrastructure"]],
   ["Sanitation Department", ["Garbage", "Sanitation", "Sewage"]],

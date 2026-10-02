@@ -1,14 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Mic, MicOff, RotateCcw, Send, Copy, Check } from "lucide-react";
-
-interface VoiceComplaintData {
-  transcript: string;
-  category?: string;
-  priority?: string;
-  description?: string;
-}
+import { Mic, MicOff, RotateCcw, Send } from "lucide-react";
+import { getSpeechRecognition, type SpeechErrorEvent, type SpeechRecognitionLike, type SpeechResultEvent } from "@/lib/speech";
 
 interface ExtractedInfo {
   description: string;
@@ -26,15 +20,14 @@ export function VoiceComplaintForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const [copied, setCopied] = useState(false);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
 
   // Initialize Web Speech API
   useEffect(() => {
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const SpeechRecognition = getSpeechRecognition();
     if (!SpeechRecognition) {
       setError("Speech recognition not supported in your browser");
       return;
@@ -50,19 +43,17 @@ export function VoiceComplaintForm() {
       setError(null);
     };
 
-    recognition.onresult = (event: any) => {
-      let interimTranscript = "";
+    recognition.onresult = (event: SpeechResultEvent) => {
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const transcriptSegment = event.results[i][0].transcript;
         if (event.results[i].isFinal) {
           setTranscript((prev) => prev + transcriptSegment + " ");
         } else {
-          interimTranscript += transcriptSegment;
         }
       }
     };
 
-    recognition.onerror = (event: any) => {
+    recognition.onerror = (event: SpeechErrorEvent) => {
       setError(`Speech recognition error: ${event.error}`);
       setIsRecording(false);
     };
@@ -205,11 +196,6 @@ export function VoiceComplaintForm() {
     }
   };
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <div className="space-y-6">
@@ -413,9 +399,9 @@ export function VoiceComplaintForm() {
         <p className="font-medium text-gray-700">How to use:</p>
         <ol className="mt-2 list-inside list-decimal space-y-1">
           <li>Select your preferred language</li>
-          <li>Click "Start Recording" and describe your complaint</li>
-          <li>Click "Stop Recording" when done</li>
-          <li>Review the transcript and click "Extract Information"</li>
+          <li>Click &quot;Start Recording&quot; and describe your complaint</li>
+          <li>Click &quot;Stop Recording&quot; when done</li>
+          <li>Review the transcript and click &quot;Extract Information&quot;</li>
           <li>Verify the extracted details and submit</li>
         </ol>
       </div>

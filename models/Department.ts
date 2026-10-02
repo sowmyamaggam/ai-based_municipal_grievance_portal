@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models, type InferSchemaType, type Model } from "mongoose";
 
 const departmentSchema = new Schema(
   {
@@ -9,4 +9,5 @@ const departmentSchema = new Schema(
   { timestamps: true }
 );
 
-export const Department: any = models.Department || model("Department", departmentSchema);
+type DepartmentDocument = InferSchemaType<typeof departmentSchema>;
+export const Department: Model<DepartmentDocument> = (models.Department as Model<DepartmentDocument> | undefined) || model<DepartmentDocument>("Department", departmentSchema);

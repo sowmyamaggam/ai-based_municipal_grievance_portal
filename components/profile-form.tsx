@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 type Profile = {
   name: string;
   email: string;
-  phone?: string;
+  phone: string;
   role: string;
   department?: string;
 };
@@ -17,7 +17,6 @@ type Profile = {
 export function ProfileForm({ profile: initialProfile }: { profile: Profile }) {
   const [profile, setProfile] = useState(initialProfile);
   const [name, setName] = useState(initialProfile.name);
-  const [phone, setPhone] = useState(initialProfile.phone || "");
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -31,13 +30,12 @@ export function ProfileForm({ profile: initialProfile }: { profile: Profile }) {
       const response = await fetch("/api/profile", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone: phone.trim() || undefined }),
+        body: JSON.stringify({ name }),
       });
       const payload = await response.json();
       if (!response.ok) throw new Error(payload.error || "Unable to update your profile");
       setProfile(payload.profile);
       setName(payload.profile.name);
-      setPhone(payload.profile.phone || "");
       setMessage(payload.message || "Profile updated.");
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Unable to update your profile");
@@ -53,9 +51,10 @@ export function ProfileForm({ profile: initialProfile }: { profile: Profile }) {
         <p className="mt-1 text-sm text-slate-500">Keep your contact information current so municipal staff can follow up where appropriate.</p>
         <form className="mt-6 space-y-4" onSubmit={save}>
           <label className="block text-sm font-bold text-slate-700">Full name<Input className="mt-1.5" value={name} onChange={(event) => setName(event.target.value)} maxLength={80} required /></label>
-          <label className="block text-sm font-bold text-slate-700">Email address<Input className="mt-1.5 bg-slate-50" value={profile.email} readOnly aria-readonly="true" /></label>
-          <p className="-mt-2 text-xs text-slate-500">Contact an administrator if your email address must change.</p>
-          <label className="block text-sm font-bold text-slate-700">Phone number <span className="font-normal text-slate-400">(optional)</span><Input className="mt-1.5" type="tel" value={phone} onChange={(event) => setPhone(event.target.value)} maxLength={20} /></label>
+          <label className="block text-sm font-bold text-slate-700">Email address<Input className="mt-1.5 bg-slate-50" type="email" value={profile.email} readOnly aria-readonly="true" /></label>
+          <p className="-mt-2 text-xs text-slate-500">Your email is used for secure sign-in. Contact an administrator if it must change.</p>
+          <label className="block text-sm font-bold text-slate-700">Mobile number<Input className="mt-1.5 bg-slate-50" value={profile.phone} readOnly aria-readonly="true" /></label>
+          <p className="-mt-2 text-xs text-slate-500">Your mobile number is kept for municipal follow-up.</p>
           <Button type="submit" disabled={saving}>{saving ? "Saving…" : "Save profile"}</Button>
         </form>
         {(message || error) && <p role={error ? "alert" : "status"} className={`mt-5 flex gap-2 rounded-xl p-4 text-sm font-medium ${error ? "bg-red-50 text-red-800" : "bg-emerald-50 text-emerald-800"}`}>{error ? <ShieldCheck size={18} /> : <CheckCircle2 size={18} />}{error || message}</p>}

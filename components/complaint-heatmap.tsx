@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Popup, CircleMarker } from "react-leaflet";
-import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 interface HeatmapMarker {
@@ -13,7 +12,6 @@ interface HeatmapMarker {
   status: string;
   coordinates: [number, number];
   address?: string;
-  citizenName?: string;
   createdAt: string;
 }
 
@@ -23,6 +21,7 @@ interface HeatmapStats {
   byPriority: Record<string, number>;
   byStatus: Record<string, number>;
 }
+type HeatmapFeature = { id: string; properties: { complaintNumber: string; category: string; priority: string; status: string; address?: string; createdAt?: string }; geometry: { coordinates: [number, number] } };
 
 export function ComplaintHeatmap() {
   const [markers, setMarkers] = useState<HeatmapMarker[]>([]);
@@ -68,8 +67,8 @@ export function ComplaintHeatmap() {
 
       const data = await response.json();
 
-      const transformed: HeatmapMarker[] = data.complaints.features.map(
-        (feature: any) => ({
+      const transformed: HeatmapMarker[] = (data.complaints.features as HeatmapFeature[]).map(
+        (feature) => ({
           id: feature.id,
           complaintNumber: feature.properties.complaintNumber,
           category: feature.properties.category,
@@ -77,17 +76,15 @@ export function ComplaintHeatmap() {
           status: feature.properties.status,
           coordinates: feature.geometry.coordinates as [number, number],
           address: feature.properties.address,
-          citizenName: feature.properties.citizenName,
-          createdAt: feature.properties.createdAt,
+          createdAt: feature.properties.createdAt || "",
         })
       );
 
       setMarkers(transformed);
       setStats(data.statistics);
       setError(null);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load map");
-      console.error("Heatmap error:", err);
+    } catch {
+      setError("Unable to load the map. Please try again.");
     } finally {
       setLoading(false);
     }

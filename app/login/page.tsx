@@ -18,12 +18,17 @@ export default function LoginPage() {
     event.preventDefault();
     setLoading(true);
     setError("");
-    const result = await signIn("credentials", { email, password, redirect: false });
-    if (result?.error) {
-      setError("We couldn't sign you in. Check your email and password.");
-      setLoading(false);
-    } else {
+    try {
+      const result = await signIn("credentials", { email, password, redirect: false });
+      if (result?.error) {
+        setError("We couldn't sign you in. Check your email and password.");
+        return;
+      }
       window.location.assign("/dashboard");
+    } catch {
+      setError("Sign-in is temporarily unavailable. Please try again shortly.");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -55,6 +60,7 @@ export default function LoginPage() {
                   autoComplete="email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
+                  placeholder="you@example.com"
                   required
                 />
               </div>

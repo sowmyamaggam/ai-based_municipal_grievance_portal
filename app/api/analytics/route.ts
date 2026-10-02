@@ -33,6 +33,6 @@ export async function GET() {
     ]);
     return NextResponse.json({ total, statuses, priorities, categories, departments, trend, averageResolutionHours: Math.round((resolvedTime[0]?.value ?? 0) * 10) / 10, satisfaction: satisfaction[0] ?? { rating: 0, count: 0 }, officers, hotspots, recentFeedback });
   } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to load analytics" }, { status: 500 });
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }

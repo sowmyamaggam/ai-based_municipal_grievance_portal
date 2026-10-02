@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { FileText, ImagePlus, LoaderCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export type ResolutionAttachment = { url: string; filename: string; mimeType: "image/jpeg" | "image/png" | "application/pdf"; size: number };
+export type ResolutionAttachment = { url: string; uploadId: string; filename: string; mimeType: "image/jpeg" | "image/png" | "application/pdf"; size: number };
 
 export function ResolutionEvidenceUpload({ evidence, onChange, disabled }: { evidence: ResolutionAttachment[]; onChange: (evidence: ResolutionAttachment[]) => Promise<void> | void; disabled?: boolean }) {
   const inputRef = useRef<HTMLInputElement>(null);

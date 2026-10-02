@@ -70,6 +70,6 @@ export async function GET(request: Request) {
       },
     });
   } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to generate the PDF report" }, { status: 400 });
+    return NextResponse.json({ error: "Unable to generate the PDF report. Check the selected dates and try again." }, { status: 400 });
   }
 }

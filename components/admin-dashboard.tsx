@@ -1,13 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { AlertTriangle, BarChart3, Clock3, MapPinned, Star, Users } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Card } from "@/components/ui/card";
 import { ComplaintMap } from "@/components/complaint-map";
-import { ComplaintHeatmap } from "@/components/complaint-heatmap";
 import { ReportDownload } from "@/components/report-download";
+
+const ComplaintHeatmap = dynamic(
+  () => import("@/components/complaint-heatmap").then((module) => module.ComplaintHeatmap),
+  { ssr: false, loading: () => <div className="grid min-h-80 place-items-center rounded-xl bg-slate-100 text-sm text-slate-500">Loading map…</div> }
+);
 
 type Analytics = {
   total: number;

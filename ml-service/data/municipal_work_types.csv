@@ -1,0 +1,505 @@
+text,work_type,source
+water conservation rooftank leak or overflow cko,Water,nyc:water conservation:rooftank leak or overflow (cko)
+please inspect the electric issue described as lighting,Streetlight,nyc:electric:lighting
+residents need help with replacement basket,Garbage,nyc:litter basket request:replacement basket
+residents need help with street light cycling,Streetlight,nyc:street light condition:street light cycling
+please inspect the residential disposal complaint issue described as mattress or box spring uncovered,Garbage,nyc:residential disposal complaint:mattress or box spring uncovered
+general bell buzzer intercom,Other,nyc:general:bell/buzzer/intercom
+residents need help with support bracket,Road,nyc:traffic signal condition:support bracket
+residents need help with metal protruding sign stump,Road,nyc:sidewalk condition:metal protruding - sign stump
+municipal complaint about catch basin clogged flooding use comments sc near a public area,Drainage,nyc:sewer:catch basin clogged/flooding (use comments) (sc)
+water system hydrant defective wc2,Water,nyc:water system:hydrant defective (wc2)
+residents need help with condition attracting rodents,Sanitation,nyc:rodent:condition attracting rodents
+municipal complaint about hyd valve box cover missing wv2 near a public area,Water,nyc:water system:hyd valve box cover missing (wv2)
+municipal complaint about bike signal near a public area,Road,nyc:traffic signal condition:bike signal
+traffic signal condition ped multiple lamps,Road,nyc:traffic signal condition:ped multiple lamps
+garbage is overflowing near the residential area,Garbage,curated:Garbage:1
+please inspect the street light condition issue described as fixture luminaire damaged,Streetlight,nyc:street light condition:fixture/luminaire damaged
+municipal complaint about controller cabinet near a public area,Road,nyc:traffic signal condition:controller cabinet
+please inspect the missed collection issue described as recycling paper metal glass rigid plastic,Garbage,nyc:missed collection:recycling - paper/metal/glass/rigid plastic
+sidewalk is broken near the bus stop,Road,curated:Road:6
+residents need help with street flooding sj,Drainage,nyc:sewer:street flooding (sj)
+dead animal squirrel,Sanitation,nyc:dead animal:squirrel
+please inspect the obstruction issue described as merchandise,Other,nyc:obstruction:merchandise
+please inspect the obstruction issue described as sign,Other,nyc:obstruction:sign
+litter basket request new basket,Garbage,nyc:litter basket request:new basket
+municipal complaint about mold near a public area,Sanitation,nyc:unsanitary condition:mold
+municipal complaint about fixture luminaire damaged near a public area,Streetlight,nyc:street light condition:fixture/luminaire damaged
+multiple street lights are out,Streetlight,curated:Streetlight:2
+market daggara rats unnayi,Sanitation,curated:Sanitation:17
+street light condition fixture luminaire out of position,Streetlight,nyc:street light condition:fixture/luminaire out of position
+residents need help with time switch,Road,nyc:traffic signal condition:time switch
+please inspect the maintenance or facility issue described as hours of operation,Other,nyc:maintenance or facility:hours of operation
+residents need help with veh signal lamp,Road,nyc:traffic signal condition:veh signal lamp
+please inspect the water system issue described as no water wnw,Water,nyc:water system:no water (wnw)
+residents need help with sewage,Sanitation,nyc:unsanitary condition:sewage
+municipal complaint about illegal use of a hydrant cin near a public area,Water,nyc:water conservation:illegal use of a hydrant (cin)
+please inspect the missed collection issue described as trash and bulky trash,Garbage,nyc:missed collection:trash and bulky trash
+residents need help with pothole highway,Road,nyc:highway condition:pothole - highway
+street condition dumpster construction waste,Road,nyc:street condition:dumpster - construction waste
+main pipe needs urgent repair,Water,curated:Water:14
+please inspect the rodent issue described as mouse sighting,Sanitation,nyc:rodent:mouse sighting
+municipal complaint about dead animal near a public area,Road,nyc:highway condition:dead animal
+municipal complaint about refrigerator or freezer door attached near a public area,Garbage,nyc:residential disposal complaint:refrigerator or freezer door attached
+municipal complaint about recycling paper metal glass rigid plastic near a public area,Garbage,nyc:missed collection:recycling - paper/metal/glass/rigid plastic
+residents need help with bin not used,Garbage,nyc:residential disposal complaint:bin not used
+please inspect the dirty condition issue described as syringes,Sanitation,nyc:dirty condition:syringes
+maintenance or facility structure indoors,Other,nyc:maintenance or facility:structure - indoors
+residents need help with street light out,Streetlight,nyc:street light condition:street light out
+residents need help with conduit,Road,nyc:traffic signal condition:conduit
+please inspect the street light condition issue described as lamppost base door cover missing,Streetlight,nyc:street light condition:lamppost base door/cover missing
+please inspect the maintenance or facility issue described as broken glass,Other,nyc:maintenance or facility:broken glass
+residents need help with recycling paper metal glass rigid plastic,Garbage,nyc:missed collection:recycling - paper/metal/glass/rigid plastic
+please inspect the missed collection issue described as recycling paper,Garbage,nyc:missed collection:recycling - paper
+municipal complaint about rain garden debris girgd near a public area,Drainage,nyc:sewer:rain garden debris (girgd)
+residents need help with low water pressure wlwp,Water,nyc:water system:low water pressure - wlwp
+residents need help with line marking after repaving,Road,nyc:street condition:line/marking - after repaving
+traffic signal condition conduit,Road,nyc:traffic signal condition:conduit
+sewer sewer odor sa2,Drainage,nyc:sewer:sewer odor (sa2)
+municipal complaint about defective missing curb piece sc4 near a public area,Drainage,nyc:sewer:defective/missing curb piece (sc4)
+residents need help with waste set out too early or too late,Garbage,nyc:residential disposal complaint:waste set out too early or too late
+residents need help with signage missing,Other,nyc:general:signage missing
+municipal complaint about dead end signal near a public area,Road,nyc:traffic signal condition:dead end signal
+residential disposal complaint waste set out too early or too late,Garbage,nyc:residential disposal complaint:waste set out too early or too late
+please inspect the street condition issue described as plate condition noisy,Road,nyc:street condition:plate condition - noisy
+sewer rain garden structure girgs,Drainage,nyc:sewer:rain garden structure (girgs)
+municipal complaint about merchandise near a public area,Other,nyc:obstruction:merchandise
+residents need help with ped flasher,Road,nyc:traffic signal condition:ped flasher
+residents need help with hydrant defective wc2,Water,nyc:water system:hydrant defective (wc2)
+sewer defective missing curb piece sc4,Drainage,nyc:sewer:defective/missing curb piece (sc4)
+please inspect the sewer issue described as catch basin grating missing sa4,Drainage,nyc:sewer:catch basin grating missing (sa4)
+street light pani cheyyatledu,Streetlight,curated:Streetlight:15
+municipal complaint about excessive water in basement wefb near a public area,Water,nyc:water system:excessive water in basement (wefb)
+residential disposal complaint refrigerator or freezer door attached,Garbage,nyc:residential disposal complaint:refrigerator or freezer door attached
+please inspect the maintenance or facility issue described as unsecured facility,Other,nyc:maintenance or facility:unsecured facility
+residents need help with cat,Sanitation,nyc:dead animal:cat
+please inspect the water conservation issue described as rooftank leak or overflow cko,Water,nyc:water conservation:rooftank leak or overflow (cko)
+dirty condition dirt or gravel,Sanitation,nyc:dirty condition:dirt or gravel
+municipal complaint about recycling posters not posted near a public area,Garbage,nyc:residential disposal complaint:recycling posters not posted
+mosquitoes are breeding in stagnant waste,Sanitation,curated:Sanitation:8
+please inspect the water conservation issue described as water meter broken leaking other cmo,Water,nyc:water conservation:water meter broken/leaking - other (cmo)
+water leak damp spot,Water,nyc:water leak:damp spot
+residential disposal complaint storage area not provided,Garbage,nyc:residential disposal complaint:storage area not provided
+waste collection miss ayyindi,Garbage,curated:Garbage:17
+please inspect the residential disposal complaint issue described as storage area not provided,Garbage,nyc:residential disposal complaint:storage area not provided
+residents need help with broken glass,Other,nyc:maintenance or facility:broken glass
+municipal complaint about low water pressure wlwp near a public area,Water,nyc:water system:low water pressure - wlwp
+water leak near the public tap,Water,curated:Water:13
+municipal complaint about bracket arm loose near a public area,Streetlight,nyc:street light condition:bracket arm loose
+dead animal deer,Sanitation,nyc:dead animal:deer
+municipal complaint about heavy flow near a public area,Water,nyc:water leak:heavy flow
+dirty condition debris from car accident,Sanitation,nyc:dirty condition:debris from car accident
+please inspect the damaged tree issue described as tree trunk split,Other,nyc:damaged tree:tree trunk split
+residential disposal complaint bin not used,Garbage,nyc:residential disposal complaint:bin not used
+municipal complaint about recycling paper near a public area,Garbage,nyc:missed collection:recycling - paper
+municipal complaint about lamppost base door cover missing near a public area,Streetlight,nyc:street light condition:lamppost base door/cover missing
+residents need help with catch basin grating missing sa4,Drainage,nyc:sewer:catch basin grating missing (sa4)
+municipal complaint about recycling metal glass rigid plastic near a public area,Garbage,nyc:missed collection:recycling - metal/glass/rigid plastic
+obstruction sign,Other,nyc:obstruction:sign
+water system hydrant knocked over missing wc,Water,nyc:water system:hydrant knocked over/missing (wc)
+residents need help with chronic dumping,Garbage,nyc:illegal dumping:chronic dumping
+a park facility is broken,Other,curated:Other:8
+catch basin is flooding during rain,Drainage,curated:Drainage:5
+please inspect the highway condition issue described as litter,Road,nyc:highway condition:litter
+garbage pickup avvaledu,Garbage,curated:Garbage:15
+please inspect the sewer issue described as manhole overflow use comments sa1,Drainage,nyc:sewer:manhole overflow (use comments) (sa1)
+please inspect the paint plaster issue described as radiator,Other,nyc:paint/plaster:radiator
+residents need help with debris from car accident,Sanitation,nyc:dirty condition:debris from car accident
+garbage has not been collected,Garbage,curated:Garbage:0
+municipal complaint about illegal commercial use in resident zone near a public area,Other,nyc:building/use:illegal. commercial use in resident zone
+unsanitary conditions outside the building,Sanitation,curated:Sanitation:4
+residents need help with fixture luminaire out of position,Streetlight,nyc:street light condition:fixture/luminaire out of position
+residents need help with raccoon,Sanitation,nyc:dead animal:raccoon
+please inspect the sewer issue described as sewer backup use comments sa,Drainage,nyc:sewer:sewer backup (use comments) (sa)
+the community toilet is unusable,Sanitation,curated:Sanitation:14
+please inspect the street light condition issue described as lamppost missing,Streetlight,nyc:street light condition:lamppost missing
+street light condition bracket arm broken,Streetlight,nyc:street light condition:bracket arm broken
+municipal complaint about veh signal lens near a public area,Road,nyc:traffic signal condition:veh signal lens
+municipal complaint about rat sighting near a public area,Sanitation,nyc:rodent:rat sighting
+municipal complaint about dirt or gravel near a public area,Sanitation,nyc:dirty condition:dirt or gravel
+municipal complaint about broken sidewalk near a public area,Road,nyc:sidewalk condition:broken sidewalk
+curb condition curb defect metal protruding,Road,nyc:curb condition:curb defect-metal protruding
+municipal complaint about trash and bulky trash near a public area,Garbage,nyc:missed collection:trash and bulky trash
+municipal complaint about mailbox near a public area,Other,nyc:general:mailbox
+please inspect the missed collection issue described as compost,Garbage,nyc:missed collection:compost
+municipal complaint about post near a public area,Road,nyc:traffic signal condition:post
+please inspect the water system issue described as leak use comments wa2,Water,nyc:water system:leak (use comments) (wa2)
+municipal complaint about dog waste near a public area,Sanitation,nyc:dirty condition:dog waste
+municipal complaint about cat near a public area,Sanitation,nyc:dead animal:cat
+water conservation water meter broken leaking private residence cmr,Water,nyc:water conservation:water meter broken/leaking - private residence (cmr)
+municipal complaint about trash or recycling near a public area,Other,nyc:obstruction:trash or recycling
+municipal complaint about catch basin search sc2 near a public area,Drainage,nyc:sewer:catch basin search (sc2)
+electric outlet switch,Streetlight,nyc:electric:outlet/switch
+municipal complaint about deer near a public area,Sanitation,nyc:dead animal:deer
+residents need help with syringes,Sanitation,nyc:dirty condition:syringes
+municipal complaint about guard rail street near a public area,Road,nyc:street condition:guard rail - street
+residents need help with recycling posters not posted,Garbage,nyc:residential disposal complaint:recycling posters not posted
+traffic signal condition ped flasher,Road,nyc:traffic signal condition:ped flasher
+municipal complaint about bin not used near a public area,Garbage,nyc:residential disposal complaint:bin not used
+water system hyd valve box cover missing wv2,Water,nyc:water system:hyd valve box cover missing (wv2)
+missed collection recycling paper,Garbage,nyc:missed collection:recycling - paper
+please inspect the sewer issue described as catch basin sunken damaged raised sc1,Drainage,nyc:sewer:catch basin sunken/damaged/raised (sc1)
+municipal complaint about fixture luminaire out of position near a public area,Streetlight,nyc:street light condition:fixture/luminaire out of position
+municipal complaint about installation of hydrant side post whfp near a public area,Water,nyc:water system:installation of hydrant side post (whfp)
+sewage smell is affecting residents,Sanitation,curated:Sanitation:2
+municipal complaint about culvert blocked needs cleaning se near a public area,Drainage,nyc:sewer:culvert blocked/needs cleaning (se)
+please inspect the litter basket request issue described as new basket,Garbage,nyc:litter basket request:new basket
+highway pothole is dangerous,Road,curated:Road:9
+residents need help with wiring,Streetlight,nyc:electric:wiring
+residents need help with loose plate,Road,nyc:highway condition:loose plate
+dumping valla lane block ayyindi,Garbage,curated:Garbage:19
+residents need help with traffic signal light,Streetlight,nyc:street light condition:traffic signal light
+water conservation water meter stolen missing private residence clr,Water,nyc:water conservation:water meter stolen/missing - private residence (clr)
+sewer manhole overflow use comments sa1,Drainage,nyc:sewer:manhole overflow (use comments) (sa1)
+municipal complaint about tree alive in poor condition near a public area,Other,nyc:damaged tree:tree alive - in poor condition
+dumped rubbish is creating a foul smell,Garbage,curated:Garbage:13
+municipal complaint about zoning non conforming illegal vehicle storage near a public area,Other,nyc:building/use:zoning - non-conforming/illegal vehicle storage
+residents need help with hydrant running full wa4,Water,nyc:water system:hydrant running full (wa4)
+paint plaster radiator,Other,nyc:paint/plaster:radiator
+residents need help with lamppost knocked down,Streetlight,nyc:street light condition:lamppost knocked down
+sewer is overflowing into the street,Drainage,curated:Drainage:2
+please inspect the street light condition issue described as lamppost damaged,Streetlight,nyc:street light condition:lamppost damaged
+residents need help with defective missing curb piece sc4,Drainage,nyc:sewer:defective/missing curb piece (sc4)
+residents need help with storage area not provided,Garbage,nyc:residential disposal complaint:storage area not provided
+residents need help with sewer odor sa2,Drainage,nyc:sewer:sewer odor (sa2)
+street condition blocked construction,Road,nyc:street condition:blocked - construction
+municipal complaint about catch basin grating missing sa4 near a public area,Drainage,nyc:sewer:catch basin grating missing (sa4)
+please inspect the general issue described as mailbox,Other,nyc:general:mailbox
+illegal dumping is blocking the lane,Garbage,curated:Garbage:4
+please inspect the street light condition issue described as flood light lamp out,Streetlight,nyc:street light condition:flood light lamp out
+sewer catch basin search sc2,Drainage,nyc:sewer:catch basin search (sc2)
+please inspect the highway condition issue described as dead animal,Road,nyc:highway condition:dead animal
+municipal complaint about possible water main break use comments wa1 near a public area,Water,nyc:water system:possible water main break (use comments) (wa1)
+residents need help with radiator,Other,nyc:paint/plaster:radiator
+residents need help with hydrant running wc3,Water,nyc:water system:hydrant running (wc3)
+water system hydrant running full wa4,Water,nyc:water system:hydrant running full (wa4)
+please inspect the sewer issue described as rain garden structure girgs,Drainage,nyc:sewer:rain garden structure (girgs)
+residents need help with hyd valve box cover missing wv2,Water,nyc:water system:hyd valve box cover missing (wv2)
+please inspect the illegal dumping issue described as chronic dumping,Garbage,nyc:illegal dumping:chronic dumping
+residents need help with culvert blocked needs cleaning se,Drainage,nyc:sewer:culvert blocked/needs cleaning (se)
+missed collection compost,Garbage,nyc:missed collection:compost
+water system hydrant running wc3,Water,nyc:water system:hydrant running (wc3)
+municipal complaint about litter near a public area,Road,nyc:highway condition:litter
+street light condition lamppost base door cover missing,Streetlight,nyc:street light condition:lamppost base door/cover missing
+municipal complaint about dirty water we near a public area,Water,nyc:water system:dirty water (we)
+please inspect the traffic signal condition issue described as sway bar,Road,nyc:traffic signal condition:sway bar
+exposed wire on the lamp post is dangerous,Streetlight,curated:Streetlight:6
+residents need help with glassware missing,Streetlight,nyc:street light condition:glassware missing
+please inspect the general issue described as bell buzzer intercom,Other,nyc:general:bell/buzzer/intercom
+please inspect the dead animal issue described as dog,Sanitation,nyc:dead animal:dog
+traffic signal condition wireless,Road,nyc:traffic signal condition:wireless
+municipal complaint about sewer odor sa2 near a public area,Drainage,nyc:sewer:sewer odor (sa2)
+street light condition glassware missing,Streetlight,nyc:street light condition:glassware missing
+a water pipe leak is wasting water,Water,curated:Water:7
+building use zoning non conforming illegal vehicle storage,Other,nyc:building/use:zoning - non-conforming/illegal vehicle storage
+please inspect the dead animal issue described as opossum,Sanitation,nyc:dead animal:opossum
+residents need help with sewer backup use comments sa,Drainage,nyc:sewer:sewer backup (use comments) (sa)
+residents need help with hydrant leaking wc1,Water,nyc:water system:hydrant leaking (wc1)
+residents need help with manhole cover missing emergency sa3,Drainage,nyc:sewer:manhole cover missing (emergency) (sa3)
+residents need help with merchandise,Other,nyc:obstruction:merchandise
+municipal complaint about weeds or grass near a public area,Other,nyc:obstruction:weeds or grass
+municipal complaint about power outage near a public area,Streetlight,nyc:electric:power outage
+missed collection trash and bulky trash,Garbage,nyc:missed collection:trash and bulky trash
+residents need help with sidewalk display,Other,nyc:obstruction:sidewalk display
+toilet cleaning immediate ga kavali,Sanitation,curated:Sanitation:18
+residents need help with trash and bulky trash,Garbage,nyc:missed collection:trash and bulky trash
+residents need help with rain garden structure girgs,Drainage,nyc:sewer:rain garden structure (girgs)
+residents need removal of dumped waste,Garbage,curated:Garbage:9
+please inspect the unsanitary condition issue described as sewage,Sanitation,nyc:unsanitary condition:sewage
+municipal complaint about bulky recycling near a public area,Garbage,nyc:missed collection:bulky recycling
+residents need help with compost,Garbage,nyc:missed collection:compost
+municipal complaint about garbage recycling storage near a public area,Sanitation,nyc:unsanitary condition:garbage/recycling storage
+municipal complaint about opossum near a public area,Sanitation,nyc:dead animal:opossum
+please inspect the water conservation issue described as illegal use of a hydrant cin,Water,nyc:water conservation:illegal use of a hydrant (cin)
+water conservation wasting faucets sinks flushometer urinal etc other cwo,Water,"nyc:water conservation:wasting faucets,sinks,flushometer,urinal,etc. - other (cwo)"
+municipal complaint about sewage near a public area,Sanitation,nyc:unsanitary condition:sewage
+please inspect the obstruction issue described as sidewalk display,Other,nyc:obstruction:sidewalk display
+municipal complaint about lamppost damaged near a public area,Streetlight,nyc:street light condition:lamppost damaged
+please inspect the electric issue described as outlet switch,Streetlight,nyc:electric:outlet/switch
+residents need help with manhole overflow use comments sa1,Drainage,nyc:sewer:manhole overflow (use comments) (sa1)
+residents need help with waste left in front of other residence,Garbage,nyc:residential disposal complaint:waste left in front of other residence
+street has rough pitted asphalt,Road,curated:Road:5
+residents need help with entire tree has fallen down,Other,nyc:damaged tree:entire tree has fallen down
+please inspect the sewer issue described as manhole cover missing emergency sa3,Drainage,nyc:sewer:manhole cover missing (emergency) (sa3)
+please inspect the traffic signal condition issue described as veh signal visor,Road,nyc:traffic signal condition:veh signal visor
+please inspect the rodent issue described as signs of rodents,Sanitation,nyc:rodent:signs of rodents
+please inspect the street light condition issue described as foreign attachment on lamppost,Streetlight,nyc:street light condition:foreign attachment on lamppost
+municipal complaint about broken glass near a public area,Sanitation,nyc:dirty condition:broken glass
+residential area lo trash pile undi,Garbage,curated:Garbage:18
+sidewalk condition sidewalk grating missing,Road,nyc:sidewalk condition:sidewalk grating - missing
+residents need help with on structure,Road,nyc:traffic signal condition:on structure
+lamp post is leaning over the road,Streetlight,curated:Streetlight:14
+street light keeps cycling,Streetlight,curated:Streetlight:4
+traffic signal condition ped lamp,Road,nyc:traffic signal condition:ped lamp
+electric pole light is damaged,Streetlight,curated:Streetlight:1
+varsham lo street flooding avutundi,Drainage,curated:Drainage:17
+residents need help with mailbox,Other,nyc:general:mailbox
+please inspect the dirty condition issue described as dirt or gravel,Sanitation,nyc:dirty condition:dirt or gravel
+residents need help with guard rail street,Road,nyc:street condition:guard rail - street
+residents need help with installation of hydrant side post whfp,Water,nyc:water system:installation of hydrant side post (whfp)
+drinking water pipe leak avutundi,Water,curated:Water:16
+please inspect the sewer issue described as sewer odor sa2,Drainage,nyc:sewer:sewer odor (sa2)
+residents need help with trash,Garbage,nyc:missed collection:trash
+please inspect the dirty condition issue described as dog waste,Sanitation,nyc:dirty condition:dog waste
+footpath meeda obstruction undi,Other,curated:Other:16
+please inspect the general issue described as cabinet,Other,nyc:general:cabinet
+please inspect the water system issue described as low water pressure wlwp,Water,nyc:water system:low water pressure - wlwp
+residents need help with wasting faucets sinks flushometer urinal etc other cwo,Water,"nyc:water conservation:wasting faucets,sinks,flushometer,urinal,etc. - other (cwo)"
+graffiti is on the public wall,Other,curated:Other:1
+street light condition street light cycling,Streetlight,nyc:street light condition:street light cycling
+water conservation illegal use of a hydrant cin,Water,nyc:water conservation:illegal use of a hydrant (cin)
+please inspect the residential disposal complaint issue described as bin not used,Garbage,nyc:residential disposal complaint:bin not used
+municipal complaint about tree leaning uprooted near a public area,Other,nyc:damaged tree:tree leaning/uprooted
+sewer backup is entering homes,Drainage,curated:Drainage:6
+please inspect the maintenance or facility issue described as recreation center,Other,nyc:maintenance or facility:recreation center
+broken pipeline near the market,Water,curated:Water:10
+municipal complaint about dog near a public area,Sanitation,nyc:dead animal:dog
+the municipal light flickers at night,Streetlight,curated:Streetlight:12
+damaged streetlight cover needs repair,Streetlight,curated:Streetlight:9
+damaged tree branch or limb has fallen down,Other,nyc:damaged tree:branch or limb has fallen down
+residents need help with broken glass,Sanitation,nyc:dirty condition:broken glass
+residents need help with waste not separated,Garbage,nyc:residential disposal complaint:waste not separated
+residents need help with slow leak,Water,nyc:water leak:slow leak
+electric lighting,Streetlight,nyc:electric:lighting
+please inspect the street light condition issue described as lamppost wire exposed,Streetlight,nyc:street light condition:lamppost wire exposed
+municipal complaint about curb defect metal protruding near a public area,Road,nyc:curb condition:curb defect-metal protruding
+rainwater cannot flow through the gutter,Drainage,curated:Drainage:9
+municipal complaint about bell buzzer intercom near a public area,Other,nyc:general:bell/buzzer/intercom
+please inspect the maintenance or facility issue described as graffiti or vandalism,Other,nyc:maintenance or facility:graffiti or vandalism
+municipal complaint about entire tree has fallen down near a public area,Other,nyc:damaged tree:entire tree has fallen down
+dead animal other,Sanitation,nyc:dead animal:other
+residents need help with dead animal,Road,nyc:highway condition:dead animal
+please inspect the obstruction issue described as cone,Other,nyc:obstruction:cone
+residents need help with rodent sighting,Other,nyc:maintenance or facility:rodent sighting
+residents need help with lamppost base door cover damaged,Streetlight,nyc:street light condition:lamppost base door/cover damaged
+water system no water wnw,Water,nyc:water system:no water (wnw)
+sewer manhole cover missing emergency sa3,Drainage,nyc:sewer:manhole cover missing (emergency) (sa3)
+please inspect the street light condition issue described as fire alarm lamp cycling,Streetlight,nyc:street light condition:fire alarm lamp cycling
+please inspect the water system issue described as dirty water we,Water,nyc:water system:dirty water (we)
+there is no water in our area,Water,curated:Water:6
+traffic signal condition pedestrian signal,Road,nyc:traffic signal condition:pedestrian signal
+sewer sewer backup use comments sa,Drainage,nyc:sewer:sewer backup (use comments) (sa)
+please inspect the sewer issue described as defective missing curb piece sc4,Drainage,nyc:sewer:defective/missing curb piece (sc4)
+please inspect the street light condition issue described as traffic signal light,Streetlight,nyc:street light condition:traffic signal light
+blocked culvert is causing street flooding,Drainage,curated:Drainage:10
+highway condition loose plate,Road,nyc:highway condition:loose plate
+please inspect the missed collection issue described as trash,Garbage,nyc:missed collection:trash
+municipal complaint about signage missing near a public area,Other,nyc:general:signage missing
+missed collection bulky trash,Garbage,nyc:missed collection:bulky trash
+municipal complaint about flood light lamp cycling near a public area,Streetlight,nyc:street light condition:flood light lamp cycling
+residents need help with squirrel,Sanitation,nyc:dead animal:squirrel
+residents need help with sign,Other,nyc:obstruction:sign
+nala lo chetta padi block ayyindi,Drainage,curated:Drainage:16
+please inspect the street light condition issue described as glassware missing,Streetlight,nyc:street light condition:glassware missing
+please inspect the building use issue described as zoning non conforming illegal vehicle storage,Other,nyc:building/use:zoning - non-conforming/illegal vehicle storage
+public area is extremely unhygienic,Sanitation,curated:Sanitation:0
+dirty water is coming from the tap,Water,curated:Water:5
+please inspect the maintenance or facility issue described as garbage or litter,Other,nyc:maintenance or facility:garbage or litter
+municipal complaint about trash or recycling not secure near a public area,Garbage,nyc:residential disposal complaint:trash or recycling not secure
+residents need help with opossum,Sanitation,nyc:dead animal:opossum
+residents need help with bird,Sanitation,nyc:dead animal:bird
+residents need help with lamppost leaning,Streetlight,nyc:street light condition:lamppost leaning
+please inspect the highway condition issue described as graffiti highway,Road,nyc:highway condition:graffiti - highway
+municipal complaint about water meter broken leaking other cmo near a public area,Water,nyc:water conservation:water meter broken/leaking - other (cmo)
+please inspect the street light condition issue described as street light cycling,Streetlight,nyc:street light condition:street light cycling
+municipal complaint about veh sgnl mult lamps near a public area,Road,nyc:traffic signal condition:veh sgnl mult lamps
+municipal complaint about cave in near a public area,Road,nyc:highway condition:cave-in
+municipal complaint about street light lamp dim near a public area,Streetlight,nyc:street light condition:street light lamp dim
+public property damage ayyindi,Other,curated:Other:19
+please inspect the traffic signal condition issue described as blank out matrix sgn,Road,nyc:traffic signal condition:blank out matrix sgn
+municipal complaint about lighting near a public area,Streetlight,nyc:electric:lighting
+residents need help with heavy flow,Water,nyc:water leak:heavy flow
+residents need help with no certificate of occupancy illegal contrary to co,Other,nyc:building/use:no certificate of occupancy/illegal/contrary to co
+main street is blocked by road construction debris,Road,curated:Road:12
+municipal complaint about hydrant leaking wc1 near a public area,Water,nyc:water system:hydrant leaking (wc1)
+please inspect the missed collection issue described as bulky recycling,Garbage,nyc:missed collection:bulky recycling
+sewage smell valla health problem avutundi,Sanitation,curated:Sanitation:16
+sewer catch basin grating missing sa4,Drainage,nyc:sewer:catch basin grating missing (sa4)
+please inspect the street light condition issue described as bracket arm broken,Streetlight,nyc:street light condition:bracket arm broken
+rodent signs of rodents,Sanitation,nyc:rodent:signs of rodents
+please inspect the obstruction issue described as weeds or grass,Other,nyc:obstruction:weeds or grass
+residents need help with catch basin search sc2,Drainage,nyc:sewer:catch basin search (sc2)
+water logging near the market drain,Drainage,curated:Drainage:14
+please inspect the water leak issue described as slow leak,Water,nyc:water leak:slow leak
+municipal complaint about graffiti highway near a public area,Road,nyc:highway condition:graffiti - highway
+residents need help with deer,Sanitation,nyc:dead animal:deer
+sidewalk condition sidewalk collapsed,Road,nyc:sidewalk condition:sidewalk collapsed
+a public building needs maintenance,Other,curated:Other:2
+traffic signal condition on structure,Road,nyc:traffic signal condition:on structure
+street light condition lamppost base door cover damaged,Streetlight,nyc:street light condition:lamppost base door/cover damaged
+open drain is full of stagnant water,Drainage,curated:Drainage:11
+please inspect the street condition issue described as pothole,Road,nyc:street condition:pothole
+water is entering the basement,Water,curated:Water:8
+please inspect the curb condition issue described as defacement,Road,nyc:curb condition:defacement
+sewage is backing up outside the building,Drainage,curated:Drainage:13
+please inspect the unsanitary condition issue described as pests,Sanitation,nyc:unsanitary condition:pests
+municipal complaint about leak use comments wa2 near a public area,Water,nyc:water system:leak (use comments) (wa2)
+please inspect the street condition issue described as defacement,Road,nyc:street condition:defacement
+residents need help with pothole,Road,nyc:street condition:pothole
+please inspect the water system issue described as hydrant defective wc2,Water,nyc:water system:hydrant defective (wc2)
+please inspect the dead animal issue described as other,Sanitation,nyc:dead animal:other
+residents need help with underground,Road,nyc:traffic signal condition:underground
+please inspect the street light condition issue described as street light out,Streetlight,nyc:street light condition:street light out
+residents need help with sidewalk grating missing,Road,nyc:sidewalk condition:sidewalk grating - missing
+municipal complaint about veh signal sec door near a public area,Road,nyc:traffic signal condition:veh signal sec door
+please inspect the water system issue described as hydrant running wc3,Water,nyc:water system:hydrant running (wc3)
+water system excessive water in basement wefb,Water,nyc:water system:excessive water in basement (wefb)
+street condition guard rail street,Road,nyc:street condition:guard rail - street
+damaged tree tree leaning uprooted,Other,nyc:damaged tree:tree leaning/uprooted
+street light condition street light lamp dim,Streetlight,nyc:street light condition:street light lamp dim
+sewer street flooding sj,Drainage,nyc:sewer:street flooding (sj)
+residents need help with no water wnw,Water,nyc:water system:no water (wnw)
+street light condition street light dayburning,Streetlight,nyc:street light condition:street light dayburning
+please inspect the sewer issue described as catch basin search sc2,Drainage,nyc:sewer:catch basin search (sc2)
+maintenance or facility structure outdoors,Other,nyc:maintenance or facility:structure - outdoors
+municipal complaint about condition attracting rodents near a public area,Sanitation,nyc:rodent:condition attracting rodents
+please inspect the missed collection issue described as recycling metal glass rigid plastic,Garbage,nyc:missed collection:recycling - metal/glass/rigid plastic
+streetlight has been off for a week,Streetlight,curated:Streetlight:11
+residents need help with leak use comments wa2,Water,nyc:water system:leak (use comments) (wa2)
+storm drain is clogged,Drainage,curated:Drainage:3
+drain is blocked with waste,Drainage,curated:Drainage:1
+residents need help with trash,Sanitation,nyc:dirty condition:trash
+municipal complaint about catch basin sunken damaged raised sc1 near a public area,Drainage,nyc:sewer:catch basin sunken/damaged/raised (sc1)
+missed collection recycling paper metal glass rigid plastic,Garbage,nyc:missed collection:recycling - paper/metal/glass/rigid plastic
+the public litter basket is full,Garbage,curated:Garbage:6
+residents need help with illegal use of a hydrant cin,Water,nyc:water conservation:illegal use of a hydrant (cin)
+residents need help with rain garden debris girgd,Drainage,nyc:sewer:rain garden debris (girgd)
+municipal complaint about waste set out too early or too late near a public area,Garbage,nyc:residential disposal complaint:waste set out too early or too late
+municipal complaint about fixture luminaire missing near a public area,Streetlight,nyc:street light condition:fixture/luminaire missing
+sewer water houses loki vastundi,Drainage,curated:Drainage:18
+street light condition fixture luminaire missing,Streetlight,nyc:street light condition:fixture/luminaire missing
+residential disposal complaint waste left in front of other residence,Garbage,nyc:residential disposal complaint:waste left in front of other residence
+general cabinet,Other,nyc:general:cabinet
+water system leak use comments wa2,Water,nyc:water system:leak (use comments) (wa2)
+road pakkana chetta overflowing ga undi,Garbage,curated:Garbage:16
+streetlight repair kavali,Streetlight,curated:Streetlight:19
+residents need help with recycling metal glass rigid plastic,Garbage,nyc:missed collection:recycling - metal/glass/rigid plastic
+ward road repair kavali,Road,curated:Road:19
+municipal complaint about sewer backup use comments sa near a public area,Drainage,nyc:sewer:sewer backup (use comments) (sa)
+municipal complaint about new basket near a public area,Garbage,nyc:litter basket request:new basket
+pests are spreading around the community,Sanitation,curated:Sanitation:6
+drain cleaning immediate ga kavali,Drainage,curated:Drainage:19
+litter basket request replacement basket,Garbage,nyc:litter basket request:replacement basket
+residents need help with door frame,Other,nyc:paint/plaster:door/frame
+please inspect the sewer issue described as rain garden debris girgd,Drainage,nyc:sewer:rain garden debris (girgd)
+drainage pipe is damaged,Drainage,curated:Drainage:12
+municipal complaint about syringes near a public area,Sanitation,nyc:dirty condition:syringes
+wastewater is creating unhygienic conditions,Sanitation,curated:Sanitation:1
+unclean surroundings are a health risk,Sanitation,curated:Sanitation:11
+please inspect the residential disposal complaint issue described as trash or recycling not secure,Garbage,nyc:residential disposal complaint:trash or recycling not secure
+residents need help with other,Sanitation,nyc:dead animal:other
+tap water pressure is very low,Water,curated:Water:3
+street light is not working,Streetlight,curated:Streetlight:0
+drain block ayyindi water road meeda undi,Drainage,curated:Drainage:15
+residential disposal complaint waste not separated,Garbage,nyc:residential disposal complaint:waste not separated
+residents need help with recycling paper,Garbage,nyc:missed collection:recycling - paper
+municipal complaint about water meter broken leaking private residence cmr near a public area,Water,nyc:water conservation:water meter broken/leaking - private residence (cmr)
+please inspect the sewer issue described as street flooding sj,Drainage,nyc:sewer:street flooding (sj)
+construction material is on the pavement,Other,curated:Other:7
+please inspect the dirty condition issue described as trash,Sanitation,nyc:dirty condition:trash
+highway condition cave in,Road,nyc:highway condition:cave-in
+tap nunchi dirty water vastundi,Water,curated:Water:17
+please inspect the unsanitary condition issue described as mold,Sanitation,nyc:unsanitary condition:mold
+municipal complaint about no lighting near a public area,Streetlight,nyc:electric:no lighting
+obstruction merchandise,Other,nyc:obstruction:merchandise
+lamp post wire exposed ga undi,Streetlight,curated:Streetlight:18
+residents need help with lamppost missing,Streetlight,nyc:street light condition:lamppost missing
+residents need help with warning buzzer,Road,nyc:traffic signal condition:warning buzzer
+residents need help with mattress or box spring uncovered,Garbage,nyc:residential disposal complaint:mattress or box spring uncovered
+residents need help with street light lamp dim,Streetlight,nyc:street light condition:street light lamp dim
+foul conditions near the food area,Sanitation,curated:Sanitation:13
+sewer catch basin clogged flooding use comments sc,Drainage,nyc:sewer:catch basin clogged/flooding (use comments) (sc)
+municipal complaint about removal request near a public area,Garbage,nyc:illegal dumping:removal request
+traffic signal is malfunctioning,Other,curated:Other:4
+residents need help with rat sighting,Sanitation,nyc:rodent:rat sighting
+street condition plate condition shifted,Road,nyc:street condition:plate condition - shifted
+manhole cover is missing,Drainage,curated:Drainage:4
+dirty condition syringes,Sanitation,nyc:dirty condition:syringes
+street sign needs replacement,Other,curated:Other:13
+residents need help with removal request,Garbage,nyc:illegal dumping:removal request
+please inspect the street light condition issue described as street light dayburning,Streetlight,nyc:street light condition:street light dayburning
+municipal complaint about street light dayburning near a public area,Streetlight,nyc:street light condition:street light dayburning
+residents need help with pests,Sanitation,nyc:unsanitary condition:pests
+building use sro illegal work no permit change in occupancy use,Other,nyc:building/use:sro - illegal work/no permit/change in occupancy/use
+please inspect the sidewalk condition issue described as sidewalk collapsed,Road,nyc:sidewalk condition:sidewalk collapsed
+dead animal bird,Sanitation,nyc:dead animal:bird
+municipal complaint about multiple st lts dayburning near a public area,Streetlight,nyc:street light condition:multiple st lts dayburning
+unsanitary condition garbage recycling storage,Sanitation,nyc:unsanitary condition:garbage/recycling storage
+municipal complaint about cone near a public area,Other,nyc:obstruction:cone
+hydrant is leaking,Water,curated:Water:4
+please inspect the building use issue described as illegal conversion of residential building space,Other,nyc:building/use:illegal conversion of residential building/space
+sewer culvert blocked needs cleaning se,Drainage,nyc:sewer:culvert blocked/needs cleaning (se)
+street condition rough pitted or cracked roads,Road,"nyc:street condition:rough, pitted or cracked roads"
+please inspect the residential disposal complaint issue described as waste left in front of other residence,Garbage,nyc:residential disposal complaint:waste left in front of other residence
+please inspect the sewer issue described as culvert blocked needs cleaning se,Drainage,nyc:sewer:culvert blocked/needs cleaning (se)
+municipal complaint about no water wnw near a public area,Water,nyc:water system:no water (wnw)
+road repair failed and the pothole returned,Road,curated:Road:13
+general signage missing,Other,nyc:general:signage missing
+sewer rain garden debris girgd,Drainage,nyc:sewer:rain garden debris (girgd)
+municipal complaint about rain garden structure girgs near a public area,Drainage,nyc:sewer:rain garden structure (girgs)
+water is accumulating near the drain,Drainage,curated:Drainage:0
+please inspect the sewer issue described as catch basin clogged flooding use comments sc,Drainage,nyc:sewer:catch basin clogged/flooding (use comments) (sc)
+general ventilation system,Other,nyc:general:ventilation system
+please inspect the dead animal issue described as deer,Sanitation,nyc:dead animal:deer
+municipal complaint about branch cracked and will fall near a public area,Other,nyc:damaged tree:branch cracked and will fall
+dead animal cat,Sanitation,nyc:dead animal:cat
+municipal complaint about plate condition open near a public area,Road,nyc:street condition:plate condition - open
+rendu rojula nunchi water supply ledu,Water,curated:Water:15
+unsanitary condition sewage,Sanitation,nyc:unsanitary condition:sewage
+residents need help with catch basin sunken damaged raised sc1,Drainage,nyc:sewer:catch basin sunken/damaged/raised (sc1)
+rat infestation is near the market,Sanitation,curated:Sanitation:3
+municipal complaint about bulky trash near a public area,Garbage,nyc:missed collection:bulky trash
+residents need help with garbage recycling storage,Sanitation,nyc:unsanitary condition:garbage/recycling storage
+municipal complaint about structure outdoors near a public area,Other,nyc:maintenance or facility:structure - outdoors
+sidewalk condition defective hardware,Road,nyc:sidewalk condition:defective hardware
+municipal complaint about wasting faucets sinks flushometer urinal etc other cwo near a public area,Water,"nyc:water conservation:wasting faucets,sinks,flushometer,urinal,etc. - other (cwo)"
+residents need help with dog,Sanitation,nyc:dead animal:dog
+municipal complaint about street flooding sj near a public area,Drainage,nyc:sewer:street flooding (sj)
+municipal complaint about veh signal head near a public area,Road,nyc:traffic signal condition:veh signal head
+residents need help with trash or recycling not secure,Garbage,nyc:residential disposal complaint:trash or recycling not secure
+residents need help with damp spot,Water,nyc:water leak:damp spot
+there is a strong sewer smell,Drainage,curated:Drainage:8
+residents need help with ceiling,Other,nyc:paint/plaster:ceiling
+dirty condition trash,Sanitation,nyc:dirty condition:trash
+street light condition traffic signal light,Streetlight,nyc:street light condition:traffic signal light
+municipal complaint about radiator near a public area,Other,nyc:paint/plaster:radiator
+sanitation workers are needed at the site,Sanitation,curated:Sanitation:12
+waste containers are overflowing,Garbage,curated:Garbage:10
+hydrant is running continuously,Water,curated:Water:11
+please inspect the electric issue described as no lighting,Streetlight,nyc:electric:no lighting
+please inspect the unsanitary condition issue described as garbage recycling storage,Sanitation,nyc:unsanitary condition:garbage/recycling storage
+municipal complaint about window frame near a public area,Other,nyc:paint/plaster:window/frame
+broken pedestrian ramp needs fixing,Road,curated:Road:14
+drain needs cleaning near our lane,Drainage,curated:Drainage:7
+highway condition graffiti highway,Road,nyc:highway condition:graffiti - highway
+trash is dumped beside the road,Garbage,curated:Garbage:2
+municipal complaint about manhole overflow use comments sa1 near a public area,Drainage,nyc:sewer:manhole overflow (use comments) (sa1)
+obstruction sidewalk display,Other,nyc:obstruction:sidewalk display
+municipal complaint about lamppost base door cover open near a public area,Streetlight,nyc:street light condition:lamppost base door/cover open
+municipal complaint about manhole cover missing emergency sa3 near a public area,Drainage,nyc:sewer:manhole cover missing (emergency) (sa3)
+residents need help with bell buzzer intercom,Other,nyc:general:bell/buzzer/intercom
+highway condition crash cushion defect,Road,nyc:highway condition:crash cushion defect
+please inspect the water system issue described as hydrant running full wa4,Water,nyc:water system:hydrant running full (wa4)
+please inspect the water system issue described as hydrant leaking wc1,Water,nyc:water system:hydrant leaking (wc1)
+public place lo tree padipoyindi,Other,curated:Other:15
+please inspect the dirty condition issue described as broken glass,Sanitation,nyc:dirty condition:broken glass
+residents need help with bracket arm broken,Streetlight,nyc:street light condition:bracket arm broken
+municipal complaint about other near a public area,Sanitation,nyc:dead animal:other
+residents need help with water meter broken leaking other cmo,Water,nyc:water conservation:water meter broken/leaking - other (cmo)
+please inspect the residential disposal complaint issue described as refrigerator or freezer door attached,Garbage,nyc:residential disposal complaint:refrigerator or freezer door attached
+please inspect the street light condition issue described as lamppost leaning,Streetlight,nyc:street light condition:lamppost leaning
+recycling was not collected,Garbage,curated:Garbage:7
+sewer catch basin sunken damaged raised sc1,Drainage,nyc:sewer:catch basin sunken/damaged/raised (sc1)
+please inspect the traffic signal condition issue described as bike signal,Road,nyc:traffic signal condition:bike signal
+residents need help with catch basin clogged flooding use comments sc,Drainage,nyc:sewer:catch basin clogged/flooding (use comments) (sc)
+street light condition multiple street lights out,Streetlight,nyc:street light condition:multiple street lights out
+residents need help with illegal commercial use in resident zone,Other,nyc:building/use:illegal. commercial use in resident zone
+municipal complaint about damp spot near a public area,Water,nyc:water leak:damp spot
+residents need help with foreign attachment on lamppost,Streetlight,nyc:street light condition:foreign attachment on lamppost
+please inspect the damaged tree issue described as entire tree has fallen down,Other,nyc:damaged tree:entire tree has fallen down
+residents need help with fixture luminaire missing,Streetlight,nyc:street light condition:fixture/luminaire missing
+water system possible water main break use comments wa1,Water,nyc:water system:possible water main break (use comments) (wa1)
+residents need help with aps,Road,nyc:traffic signal condition:aps
+water system dirty water we,Water,nyc:water system:dirty water (we)
+please inspect the street light condition issue described as fixture luminaire out of position,Streetlight,nyc:street light condition:fixture/luminaire out of position
+please inspect the water system issue described as excessive water in basement wefb,Water,nyc:water system:excessive water in basement (wefb)

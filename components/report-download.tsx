@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable react/no-unescaped-entities */
 import { useEffect, useMemo, useState } from "react";
 import { Download, FileBarChart } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";

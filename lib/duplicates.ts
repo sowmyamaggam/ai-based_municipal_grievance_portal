@@ -1,12 +1,12 @@
 import { Complaint } from "@/models/Complaint";
 
-type NearbyComplaint = { _id: unknown; description: string; category: string; createdAt: Date | string; location?: { coordinates: number[] }; ai?: { textEmbedding?: number[]; imageFindings?: string[] } };
+type NearbyComplaint = { _id: unknown; description: string; category: string; createdAt: Date | string; location?: { coordinates: number[] } | null; ai?: { textEmbedding?: number[] | null; imageFindings?: string[] | null } | null };
 type DuplicateMatch = { complaint: unknown; score: number; factors: { text: number; image: number; proximity: number; category: number; time: number; distanceMeters: number } };
 
 const maxDistance = Math.min(Math.max(Number(process.env.DUPLICATE_DISTANCE_METERS || 100), 25), 5_000);
 const duplicateThreshold = Math.min(Math.max(Number(process.env.DUPLICATE_SCORE_THRESHOLD || 0.7), 0.1), 1);
 
-function cosine(a?: number[], b?: number[]) {
+function cosine(a?: number[] | null, b?: number[] | null) {
   if (!a?.length || !b?.length || a.length !== b.length) return 0;
   let dot = 0, normA = 0, normB = 0;
   for (let index = 0; index < a.length; index += 1) { dot += a[index] * b[index]; normA += a[index] ** 2; normB += b[index] ** 2; }
@@ -28,8 +28,10 @@ function distanceMeters(a: number[], b: number[]) {
   return 6_371_000 * 2 * Math.atan2(Math.sqrt(arc), Math.sqrt(1 - arc));
 }
 
-function findingsSimilarity(a: string[] = [], b: string[] = []) {
-  return a.length && b.length ? lexicalSimilarity(a.join(" "), b.join(" ")) : 0.5;
+function findingsSimilarity(a?: string[] | null, b?: string[] | null) {
+  const first = a ?? [];
+  const second = b ?? [];
+  return first.length && second.length ? lexicalSimilarity(first.join(" "), second.join(" ")) : 0.5;
 }
 
 export async function detectDuplicates(complaintId: string) {

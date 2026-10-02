@@ -1,0 +1,18 @@
+{
+  "source": "https://data.cityofnewyork.us/resource/erm2-nwe9.json?$select=complaint_type,descriptor",
+  "source_records": 50000,
+  "generated_at": "2026-10-02",
+  "records": 504,
+  "classes": 7,
+  "class_distribution": {
+    "Water": 72,
+    "Streetlight": 72,
+    "Garbage": 72,
+    "Other": 72,
+    "Road": 72,
+    "Drainage": 72,
+    "Sanitation": 72
+  },
+  "seed": 42,
+  "notes": "NYC 311 taxonomy records plus curated citizen-style and Telugu/English mixed examples; grouped source splits prevent variant leakage."
+}

@@ -193,12 +193,11 @@ Use Gemini for:
 - Complaint classification
 - Department classification
 - Priority detection
-- Image analysis
 - Complaint summarization
 - Sentiment analysis
 - AI chatbot
 
-Use Gemini's multimodal capabilities for complaint text + uploaded images.
+Use complaint text with Gemini. Send uploaded images to the private Kaggle-trained `ml-service` described in `ml-service/README.md`.
 
 All Gemini API calls must happen server-side.
 
@@ -614,9 +613,9 @@ Use deterministic application rules where appropriate for obvious safety-critica
 
 When an image is uploaded, analyze:
 
-**Complaint Text + Image**
+**Image**
 
-Use Gemini's multimodal capabilities.
+Use the private Kaggle-trained image model. Gemini may analyze the complaint text separately, but uploaded image bytes must not be sent to Gemini.
 
 Possible detections:
 
@@ -712,7 +711,7 @@ Example:
 }
 ```
 
-Validate Gemini output before storing it.
+Validate Gemini and image-model output before storing it.
 
 If Gemini returns invalid/incomplete output:
 

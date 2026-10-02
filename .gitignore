@@ -17,6 +17,7 @@
 *.log
 
 # local development upload fallback
+/private-uploads/
 /public/uploads/
 
 # typescript

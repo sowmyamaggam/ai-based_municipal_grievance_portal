@@ -5,13 +5,23 @@ import { Complaint } from "@/models/Complaint";
 import { z } from "zod";
 
 const heatmapQuerySchema = z.object({
-  categories: z.string().optional(),
-  priorities: z.string().optional(),
-  statuses: z.string().optional(),
-  startDate: z.string().optional(),
-  endDate: z.string().optional(),
-  bounds: z.string().optional(), // minLat,maxLat,minLng,maxLng
-});
+  categories: z.string().max(500).optional(),
+  priorities: z.string().max(100).optional(),
+  statuses: z.string().max(200).optional(),
+  startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  bounds: z.string().max(120).optional(), // minLat,maxLat,minLng,maxLng
+}).strict();
+
+const categories = ["Road Damage", "Garbage", "Drainage", "Sewage", "Streetlight", "Water Supply", "Sanitation", "Flooding", "Infrastructure", "Public Safety", "Other"];
+const priorities = ["LOW", "MEDIUM", "HIGH", "CRITICAL"];
+const statuses = ["SUBMITTED", "ASSIGNED", "IN_PROGRESS", "RESOLVED", "CLOSED", "REOPENED", "REJECTED", "DUPLICATE", "ESCALATED"];
+type HeatmapComplaint = { _id: { toString(): string }; complaintNumber?: string; category?: string; priority?: string; status?: string; createdAt?: Date; address?: string; location?: { coordinates?: number[] } };
+
+function selectedValues(value: string | undefined, allowed: string[]) {
+  if (!value) return [];
+  return [...new Set(value.split(",").map((item) => item.trim()).filter((item) => allowed.includes(item)))];
+}
 
 export async function GET(request: Request) {
   const access = await requireUser(["ADMIN", "OFFICER"]);
@@ -31,14 +41,15 @@ export async function GET(request: Request) {
     await connectToDatabase();
 
     // Build filter query
-    const filter: any = {
+    const filter: Record<string, unknown> = {
       location: { $exists: true },
       "location.coordinates": { $exists: true, $ne: null },
     };
+    if (access.user.role === "OFFICER") filter.assignedOfficer = access.user.id;
 
     // Filter by categories
     if (params.categories) {
-      const cats = params.categories.split(",").filter(Boolean);
+      const cats = selectedValues(params.categories, categories);
       if (cats.length > 0) {
         filter.category = { $in: cats };
       }
@@ -46,7 +57,7 @@ export async function GET(request: Request) {
 
     // Filter by priorities
     if (params.priorities) {
-      const prios = params.priorities.split(",").filter(Boolean);
+      const prios = selectedValues(params.priorities, priorities);
       if (prios.length > 0) {
         filter.priority = { $in: prios };
       }
@@ -54,7 +65,7 @@ export async function GET(request: Request) {
 
     // Filter by statuses
     if (params.statuses) {
-      const stats = params.statuses.split(",").filter(Boolean);
+      const stats = selectedValues(params.statuses, statuses);
       if (stats.length > 0) {
         filter.status = { $in: stats };
       }
@@ -62,21 +73,19 @@ export async function GET(request: Request) {
 
     // Filter by date range
     if (params.startDate || params.endDate) {
-      filter.createdAt = {};
-      if (params.startDate) {
-        filter.createdAt.$gte = new Date(params.startDate);
-      }
-      if (params.endDate) {
-        filter.createdAt.$lte = new Date(params.endDate);
-      }
+      const dateFilter: { $gte?: Date; $lte?: Date } = {};
+      if (params.startDate) dateFilter.$gte = new Date(`${params.startDate}T00:00:00.000Z`);
+      if (params.endDate) dateFilter.$lte = new Date(`${params.endDate}T23:59:59.999Z`);
+      if ((dateFilter.$gte && Number.isNaN(dateFilter.$gte.getTime())) || (dateFilter.$lte && Number.isNaN(dateFilter.$lte.getTime()))) return NextResponse.json({ error: "Use valid dates in YYYY-MM-DD format." }, { status: 400 });
+      if (dateFilter.$gte && dateFilter.$lte && dateFilter.$gte > dateFilter.$lte) return NextResponse.json({ error: "The start date must be before the end date." }, { status: 400 });
+      filter.createdAt = dateFilter;
     }
 
     // Filter by geographic bounds
     if (params.bounds) {
-      const [minLat, maxLat, minLng, maxLng] = params.bounds
-        .split(",")
-        .map(Number);
-      if (!isNaN(minLat) && !isNaN(maxLat) && !isNaN(minLng) && !isNaN(maxLng)) {
+      const bounds = params.bounds.split(",").map(Number);
+      const [minLat, maxLat, minLng, maxLng] = bounds;
+      if (bounds.length === 4 && [minLat, maxLat, minLng, maxLng].every(Number.isFinite) && minLat >= -90 && maxLat <= 90 && minLng >= -180 && maxLng <= 180 && minLat <= maxLat && minLng <= maxLng) {
         filter.location = {
           $geoWithin: {
             $box: [
@@ -91,21 +100,23 @@ export async function GET(request: Request) {
     // Fetch complaints with location data
     const complaints = await Complaint.find(filter)
       .select(
-        "complaintNumber category priority status createdAt location address citizen"
+        "complaintNumber category priority status createdAt location address"
       )
-      .populate("citizen", "name")
-      .limit(1000)
-      .lean();
+      .sort({ createdAt: -1 })
+      .limit(500)
+      .lean() as HeatmapComplaint[];
 
     // Transform data for map visualization
     const features = complaints
-      .filter((c: any) => c.location?.coordinates && c.location.coordinates.length === 2)
-      .map((c: any) => ({
+      .filter((c) => c.location?.coordinates && c.location.coordinates.length === 2)
+      .map((c) => {
+        const coordinates = c.location?.coordinates || [];
+        return {
         id: c._id.toString(),
         type: "Feature",
         geometry: {
           type: "Point",
-          coordinates: c.location.coordinates,
+          coordinates,
         },
         properties: {
           complaintNumber: c.complaintNumber,
@@ -114,12 +125,12 @@ export async function GET(request: Request) {
           status: c.status || "SUBMITTED",
           createdAt: c.createdAt,
           address: c.address || "Location provided",
-          citizenName: c.citizen?.name || "Anonymous",
         },
-      }));
+        };
+      });
 
     // Calculate heatmap intensity (density)
-    const heatmapData = features.map((f: any) => [
+    const heatmapData = features.map((f) => [
       ...f.geometry.coordinates,
       getPriorityIntensity(f.properties.priority),
     ]);
@@ -137,12 +148,8 @@ export async function GET(request: Request) {
         byStatus: groupBy(complaints, "status"),
       },
     });
-  } catch (error) {
-    console.error("Heatmap API error:", error);
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Failed to load heatmap data" },
-      { status: 500 }
-    );
+  } catch {
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }
 
@@ -161,8 +168,8 @@ function getPriorityIntensity(priority: string): number {
   }
 }
 
-function groupBy(items: any[], field: string): Record<string, number> {
-  return items.reduce((acc: Record<string, number>, item: any) => {
+function groupBy(items: HeatmapComplaint[], field: "category" | "priority" | "status"): Record<string, number> {
+  return items.reduce((acc: Record<string, number>, item) => {
     const key = item[field] || "Unknown";
     acc[key] = (acc[key] || 0) + 1;
     return acc;

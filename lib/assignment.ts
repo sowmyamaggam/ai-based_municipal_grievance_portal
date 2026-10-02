@@ -38,6 +38,7 @@ export async function sendAssignmentNotifications({ complaintId, complaintNumber
   ];
 
   await Promise.allSettled(notifications.map((notification) => Notification.create(notification)));
+
 }
 
 export async function notifyAssignmentDecision({

@@ -1,0 +1,438 @@
+{
+  "model_name": "tfidf-linear-svm",
+  "model_version": "2026-10-02-42",
+  "dataset": "data/municipal_work_types.csv",
+  "training_date": "2026-10-02",
+  "records": 504,
+  "class_distribution": {
+    "Water": 72,
+    "Streetlight": 72,
+    "Garbage": 72,
+    "Other": 72,
+    "Road": 72,
+    "Drainage": 72,
+    "Sanitation": 72
+  },
+  "train_size": 355,
+  "validation_size": 70,
+  "test_size": 79,
+  "validation_metrics": {
+    "tfidf-logistic-regression": {
+      "accuracy": 0.7286,
+      "precision_macro": 0.768,
+      "recall_macro": 0.7329,
+      "f1_macro": 0.7393,
+      "classification_report": {
+        "Drainage": {
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1-score": 0.8571428571428571,
+          "support": 8.0
+        },
+        "Garbage": {
+          "precision": 0.8,
+          "recall": 0.5714285714285714,
+          "f1-score": 0.6666666666666666,
+          "support": 7.0
+        },
+        "Other": {
+          "precision": 0.46153846153846156,
+          "recall": 0.6666666666666666,
+          "f1-score": 0.5454545454545454,
+          "support": 9.0
+        },
+        "Road": {
+          "precision": 0.5384615384615384,
+          "recall": 0.7,
+          "f1-score": 0.6086956521739131,
+          "support": 10.0
+        },
+        "Sanitation": {
+          "precision": 0.6666666666666666,
+          "recall": 0.5333333333333333,
+          "f1-score": 0.5925925925925926,
+          "support": 15.0
+        },
+        "Streetlight": {
+          "precision": 1.0,
+          "recall": 0.9090909090909091,
+          "f1-score": 0.9523809523809523,
+          "support": 11.0
+        },
+        "Water": {
+          "precision": 0.9090909090909091,
+          "recall": 1.0,
+          "f1-score": 0.9523809523809523,
+          "support": 10.0
+        },
+        "accuracy": 0.7285714285714285,
+        "macro avg": {
+          "precision": 0.767965367965368,
+          "recall": 0.7329313543599258,
+          "f1-score": 0.7393306026846399,
+          "support": 70.0
+        },
+        "weighted avg": {
+          "precision": 0.7604195804195805,
+          "recall": 0.7285714285714285,
+          "f1-score": 0.7344106549075494,
+          "support": 70.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          6,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          4,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          6,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          2,
+          7,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          4,
+          3,
+          8,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          10,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          10
+        ]
+      ],
+      "labels": [
+        "Drainage",
+        "Garbage",
+        "Other",
+        "Road",
+        "Sanitation",
+        "Streetlight",
+        "Water"
+      ]
+    },
+    "tfidf-linear-svm": {
+      "accuracy": 0.7857,
+      "precision_macro": 0.7941,
+      "recall_macro": 0.7819,
+      "f1_macro": 0.7838,
+      "classification_report": {
+        "Drainage": {
+          "precision": 0.8571428571428571,
+          "recall": 0.75,
+          "f1-score": 0.8,
+          "support": 8.0
+        },
+        "Garbage": {
+          "precision": 0.7142857142857143,
+          "recall": 0.7142857142857143,
+          "f1-score": 0.7142857142857143,
+          "support": 7.0
+        },
+        "Other": {
+          "precision": 0.5454545454545454,
+          "recall": 0.6666666666666666,
+          "f1-score": 0.6,
+          "support": 9.0
+        },
+        "Road": {
+          "precision": 0.875,
+          "recall": 0.7,
+          "f1-score": 0.7777777777777778,
+          "support": 10.0
+        },
+        "Sanitation": {
+          "precision": 0.7333333333333333,
+          "recall": 0.7333333333333333,
+          "f1-score": 0.7333333333333333,
+          "support": 15.0
+        },
+        "Streetlight": {
+          "precision": 1.0,
+          "recall": 0.9090909090909091,
+          "f1-score": 0.9523809523809523,
+          "support": 11.0
+        },
+        "Water": {
+          "precision": 0.8333333333333334,
+          "recall": 1.0,
+          "f1-score": 0.9090909090909091,
+          "support": 10.0
+        },
+        "accuracy": 0.7857142857142857,
+        "macro avg": {
+          "precision": 0.7940785405071119,
+          "recall": 0.7819109461966605,
+          "f1-score": 0.7838383838383838,
+          "support": 70.0
+        },
+        "weighted avg": {
+          "precision": 0.7978509585652444,
+          "recall": 0.7857142857142857,
+          "f1-score": 0.7877839620696764,
+          "support": 70.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          6,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          5,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          6,
+          0,
+          2,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          2,
+          7,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          3,
+          0,
+          11,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          10,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          10
+        ]
+      ],
+      "labels": [
+        "Drainage",
+        "Garbage",
+        "Other",
+        "Road",
+        "Sanitation",
+        "Streetlight",
+        "Water"
+      ]
+    }
+  },
+  "test_metrics": {
+    "accuracy": 0.8861,
+    "precision_macro": 0.8906,
+    "recall_macro": 0.882,
+    "f1_macro": 0.8802,
+    "classification_report": {
+      "Drainage": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 11.0
+      },
+      "Garbage": {
+        "precision": 0.8888888888888888,
+        "recall": 0.8888888888888888,
+        "f1-score": 0.8888888888888888,
+        "support": 9.0
+      },
+      "Other": {
+        "precision": 1.0,
+        "recall": 0.6666666666666666,
+        "f1-score": 0.8,
+        "support": 12.0
+      },
+      "Road": {
+        "precision": 0.75,
+        "recall": 0.8181818181818182,
+        "f1-score": 0.782608695652174,
+        "support": 11.0
+      },
+      "Sanitation": {
+        "precision": 0.6666666666666666,
+        "recall": 0.8,
+        "f1-score": 0.7272727272727273,
+        "support": 10.0
+      },
+      "Streetlight": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 13.0
+      },
+      "Water": {
+        "precision": 0.9285714285714286,
+        "recall": 1.0,
+        "f1-score": 0.9629629629629629,
+        "support": 13.0
+      },
+      "accuracy": 0.8860759493670886,
+      "macro avg": {
+        "precision": 0.8905895691609977,
+        "recall": 0.881962481962482,
+        "f1-score": 0.8802476106823933,
+        "support": 79.0
+      },
+      "weighted avg": {
+        "precision": 0.898583484026522,
+        "recall": 0.8860759493670886,
+        "f1-score": 0.8860752081445532,
+        "support": 79.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        11,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        8,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        8,
+        3,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        9,
+        2,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        8,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        13,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        13
+      ]
+    ],
+    "labels": [
+      "Drainage",
+      "Garbage",
+      "Other",
+      "Road",
+      "Sanitation",
+      "Streetlight",
+      "Water"
+    ]
+  },
+  "classification_threshold": 0.6,
+  "threshold_selection": {
+    "threshold": 0.6,
+    "accepted_validation_f1": 0.8915,
+    "validation_coverage": 0.6
+  }
+}

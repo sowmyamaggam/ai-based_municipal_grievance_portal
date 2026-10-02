@@ -30,8 +30,8 @@ export default async function ComplaintPage({ params }: { params: Promise<{ id: 
   try {
     await connectToDatabase();
     const complaint = await Complaint.findById(id)
-      .populate("citizen", "name email phone")
-      .populate("assignedOfficer", "name email department")
+      .populate("citizen", "name phone")
+      .populate("assignedOfficer", "name phone department")
       .lean();
     if (!complaint) notFound();
 

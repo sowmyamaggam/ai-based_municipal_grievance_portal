@@ -6,9 +6,10 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ResolutionEvidenceUpload, type ResolutionAttachment } from "@/components/resolution-evidence-upload";
+import type { ComplaintDetail } from "@/lib/complaint-types";
 
 type Role = "CITIZEN" | "OFFICER" | "ADMIN";
-type Detail = any;
+type Detail = ComplaintDetail;
 type Officer = { _id: string; name: string; department?: string };
 
 function draftFrom(complaint: Detail) {

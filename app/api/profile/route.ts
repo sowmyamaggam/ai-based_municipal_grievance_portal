@@ -4,12 +4,12 @@ import { connectToDatabase } from "@/lib/db";
 import { profileSchema } from "@/lib/validation";
 import { User } from "@/models/User";
 
-function publicProfile(user: { _id: { toString(): string }; name: string; email: string; phone?: string; role: string; department?: string }) {
+function publicProfile(user: { _id: { toString(): string }; name: string; email?: string; phone: string; role: string; department?: string | null }) {
   return {
     id: user._id.toString(),
     name: user.name,
-    email: user.email,
-    phone: user.phone || "",
+    email: user.email || "",
+    phone: user.phone,
     role: user.role,
     department: user.department || "",
   };
@@ -24,7 +24,7 @@ export async function GET() {
     if (!user) return NextResponse.json({ error: "Account not found" }, { status: 404 });
     return NextResponse.json({ profile: publicProfile(user) });
   } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to load your profile" }, { status: 500 });
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }
 
@@ -36,12 +36,12 @@ export async function PATCH(request: Request) {
     await connectToDatabase();
     const user = await User.findByIdAndUpdate(
       access.user.id,
-      { $set: { name: data.name, phone: data.phone || undefined } },
+      { $set: { name: data.name } },
       { new: true }
     ).select("name email phone role department").lean();
     if (!user) return NextResponse.json({ error: "Account not found" }, { status: 404 });
     return NextResponse.json({ profile: publicProfile(user), message: "Profile updated. Your name in the navigation will refresh after your next sign-in." });
   } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to update your profile" }, { status: 400 });
+    return NextResponse.json({ error: "Unable to update your profile. Check the details and try again." }, { status: 400 });
   }
 }

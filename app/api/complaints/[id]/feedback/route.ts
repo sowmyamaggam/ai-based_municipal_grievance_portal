@@ -5,14 +5,22 @@ import { feedbackSchema } from "@/lib/validation";
 import { Complaint } from "@/models/Complaint";
 import { Notification } from "@/models/Notification";
 import { User } from "@/models/User";
+import { Types } from "mongoose";
+import { rateLimit, requireSameOrigin } from "@/lib/request-security";
 
 export async function POST(request: Request, context: { params: Promise<{ id: string }> }) {
   const access = await requireUser(["CITIZEN"]);
   if ("error" in access) return access.error;
+  const originError = requireSameOrigin(request);
+  if (originError) return originError;
+  const limitError = rateLimit(request, "feedback", 10, 60 * 60 * 1000);
+  if (limitError) return limitError;
   try {
     const data = feedbackSchema.parse(await request.json());
     await connectToDatabase();
-    const complaint = await Complaint.findOne({ _id: (await context.params).id, citizen: access.user.id });
+    const id = (await context.params).id;
+    if (!Types.ObjectId.isValid(id)) return NextResponse.json({ error: "Complaint not found" }, { status: 404 });
+    const complaint = await Complaint.findOne({ _id: id, citizen: access.user.id });
     if (!complaint) return NextResponse.json({ error: "Complaint not found" }, { status: 404 });
     if (!['RESOLVED', 'CLOSED'].includes(complaint.status)) return NextResponse.json({ error: "Feedback is available after resolution" }, { status: 400 });
     complaint.feedback = { ...data, submittedAt: new Date() };
@@ -30,8 +38,11 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
     } catch {
       // Saving feedback must never depend on notification infrastructure.
     }
-    return NextResponse.json({ complaint });
+    const updatedComplaint = await Complaint.findById(complaint._id)
+      .populate("citizen", "name phone")
+      .populate("assignedOfficer", "name phone department");
+    return NextResponse.json({ complaint: updatedComplaint });
   } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to save feedback" }, { status: 400 });
+    return NextResponse.json({ error: "Unable to save feedback. Check the details and try again." }, { status: 400 });
   }
 }

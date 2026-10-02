@@ -6,6 +6,8 @@ import { Complaint } from "@/models/Complaint";
 import { Notification } from "@/models/Notification";
 import { analyzeComplaint } from "@/lib/ai";
 import { detectDuplicates } from "@/lib/duplicates";
+import { rateLimit, requireSameOrigin } from "@/lib/request-security";
+import { validateOwnedAttachments } from "@/lib/upload-security";
 
 function complaintNumber() {
   return `CG-${new Date().getFullYear()}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
@@ -17,19 +19,30 @@ export async function GET() {
   try {
     await connectToDatabase();
     const query = access.user.role === "CITIZEN" ? { citizen: access.user.id } : access.user.role === "OFFICER" ? { assignedOfficer: access.user.id } : {};
-    const complaints = await Complaint.find(query).sort({ createdAt: -1 }).limit(100).populate("citizen", "name email").populate("assignedOfficer", "name email department").lean();
+    const complaints = await Complaint.find(query).sort({ createdAt: -1 }).limit(50).populate("citizen", "name phone").populate("assignedOfficer", "name phone department").lean();
     return NextResponse.json({ complaints });
   } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to load complaints" }, { status: 500 });
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }
 
 export async function POST(request: Request) {
   const access = await requireUser(["CITIZEN"]);
   if ("error" in access) return access.error;
+  const originError = requireSameOrigin(request);
+  if (originError) return originError;
+  const limitError = rateLimit(request, "complaint-create", 10, 15 * 60 * 1000);
+  if (limitError) return limitError;
+  let failureStage = "validation";
   try {
     const data = complaintSchema.parse(await request.json());
+    failureStage = "database-connection";
     await connectToDatabase();
+    failureStage = "attachment-validation";
+    if (!(await validateOwnedAttachments(data.attachments, access.user.id, request))) {
+      return NextResponse.json({ error: "One or more attachments are invalid or expired." }, { status: 400 });
+    }
+    failureStage = "complaint-create";
     const complaint = await Complaint.create({
       complaintNumber: complaintNumber(),
       citizen: access.user.id,
@@ -49,8 +62,9 @@ export async function POST(request: Request) {
     }
 
     // Return as soon as the report is durable. `after` lets the analysis and
-    // duplicate pipeline continue without keeping a citizen at a loading state
-    // or losing their report when Gemini is slow or unavailable.
+    // notification pipeline continue without keeping a citizen at a loading
+    // state or losing their report when Gemini is slow or unavailable.
+    failureStage = "background-scheduling";
     after(async () => {
       await analyzeComplaint(complaint._id.toString());
       try {
@@ -71,7 +85,11 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ complaint: complaint.toObject(), aiStatus: "PENDING", possibleDuplicates: [] }, { status: 201 });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unable to submit complaint";
-    return NextResponse.json({ error: message }, { status: 400 });
+    if (process.env.NODE_ENV !== "production") {
+      const errorName = error instanceof Error ? error.name : "UnknownError";
+      const errorCode = error && typeof error === "object" && "code" in error ? ` code=${String(error.code)}` : "";
+      console.error(`Complaint submission failed at ${failureStage} (${errorName}${errorCode})`);
+    }
+    return NextResponse.json({ error: "Unable to submit complaint. Check the details and try again." }, { status: 400 });
   }
 }

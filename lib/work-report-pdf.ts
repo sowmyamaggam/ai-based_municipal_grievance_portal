@@ -5,8 +5,8 @@ type ReportComplaint = {
   department: string;
   priority: string;
   status: string;
-  resolutionRemarks?: string;
-  feedback?: { rating?: number; comment?: string; submittedAt?: Date | string };
+  resolutionRemarks?: string | null;
+  feedback?: { rating?: number | null; comment?: string | null; submittedAt?: Date | string | null } | null;
 };
 
 type WorkReport = {

@@ -20,7 +20,7 @@ export default async function ProfilePage() {
         <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-ink">Manage your profile</h1>
         <p className="mt-2 text-slate-600">Update the information connected to your portal account.</p>
       </section>
-      <div className="mt-7"><ProfileForm profile={{ name: profile.name, email: profile.email, phone: profile.phone, role: profile.role, department: profile.department }} /></div>
+      <div className="mt-7"><ProfileForm profile={{ name: profile.name, email: profile.email || "", phone: profile.phone, role: profile.role, department: profile.department || undefined }} /></div>
     </DashboardShell>
   );
 }

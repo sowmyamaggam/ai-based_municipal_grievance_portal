@@ -4,23 +4,32 @@ import { categories, priorities, statuses } from "@/lib/utils";
 const coordinate = z.number().finite();
 
 export const registerSchema = z.object({
-  name: z.string().trim().min(2, "Enter your full name").max(80),
-  email: z.string().trim().email("Enter a valid email address").toLowerCase(),
+  username: z.string().trim().min(2, "Enter a username").max(80),
+  email: z.string().trim().email("Enter a valid email address").max(254).toLowerCase(),
   password: z.string().min(8, "Password must have at least 8 characters").max(100),
-  phone: z.string().trim().min(10, "Enter a valid mobile number").max(20),
+  confirmPassword: z.string().min(1, "Confirm your password"),
+  phone: z.string().trim().regex(/^\+?[1-9]\d{9,14}$/, "Enter a valid mobile number"),
+}).strict().refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords do not match",
+  path: ["confirmPassword"],
+});
+
+export const credentialsSchema = z.object({
+  email: z.string().trim().email().max(254).toLowerCase(),
+  password: z.string().min(1).max(100),
 });
 
 export const profileSchema = z.object({
   name: z.string().trim().min(2, "Enter your full name").max(80),
-  phone: z.string().trim().max(20).optional(),
-});
+}).strict();
 
 export const attachmentSchema = z.object({
   url: z.string().url().max(2048),
+  uploadId: z.string().regex(/^[a-fA-F0-9]{24}$/),
   filename: z.string().min(1).max(180),
   mimeType: z.enum(["image/jpeg", "image/png", "application/pdf"]),
   size: z.number().int().positive().max(10 * 1024 * 1024),
-});
+}).strict();
 
 export const complaintSchema = z.object({
   description: z.string().trim().min(20, "Please describe the issue in at least 20 characters").max(4000),
@@ -31,7 +40,7 @@ export const complaintSchema = z.object({
     accuracy: z.number().nonnegative().max(100_000).optional(),
   }).optional(),
   attachments: z.array(attachmentSchema).max(6).default([]),
-});
+}).strict();
 
 export const complaintUpdateSchema = z.object({
   status: z.enum(statuses).optional(),
@@ -43,7 +52,7 @@ export const complaintUpdateSchema = z.object({
   remarks: z.string().trim().max(2000).optional(),
   resolutionRemarks: z.string().trim().max(2000).optional(),
   resolutionEvidence: z.array(attachmentSchema).max(6).optional(),
-});
+}).strict();
 
 export const reportQuerySchema = z.object({
   scope: z.enum(["overall", "officer"]).default("overall"),
@@ -55,26 +64,26 @@ export const reportQuerySchema = z.object({
 export const feedbackSchema = z.object({
   rating: z.number().int().min(1).max(5),
   comment: z.string().trim().max(1000).optional(),
-});
+}).strict();
 
-export const chatSchema = z.object({ message: z.string().trim().min(1).max(1000) });
+export const chatSchema = z.object({ message: z.string().trim().min(1).max(1000) }).strict();
 
 export const officerSchema = z.object({
   name: z.string().trim().min(2, "Enter the officer's full name").max(80),
-  email: z.string().trim().email("Enter a valid email address").toLowerCase(),
+  email: z.string().trim().email("Enter a valid email address").max(254).toLowerCase(),
   password: z.string().min(8, "Use at least 8 characters for the temporary password").max(100),
   department: z.string().trim().min(2, "Select or enter a department").max(100),
-  phone: z.string().trim().max(20).optional(),
-});
+  phone: z.string().trim().regex(/^\+?[1-9]\d{9,14}$/, "Enter a valid mobile number"),
+}).strict();
 
 export const managedUserSchema = z.object({
   active: z.boolean().optional(),
   department: z.string().trim().max(100).optional(),
   name: z.string().trim().min(2).max(80).optional(),
-});
+}).strict();
 
 export const departmentSchema = z.object({
   name: z.string().trim().min(2, "Enter a department name").max(100),
   categories: z.array(z.string().trim().min(2).max(80)).min(1, "Map at least one category").max(20),
   active: z.boolean().default(true),
-});
+}).strict();

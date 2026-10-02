@@ -6,9 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { getSpeechRecognition, type SpeechErrorEvent, type SpeechRecognitionLike, type SpeechResultEvent } from "@/lib/speech";
 
 type UploadedFile = {
   url: string;
+  uploadId: string;
   filename: string;
   mimeType: "image/jpeg" | "image/png" | "application/pdf";
   size: number;
@@ -34,10 +36,9 @@ export function NewComplaintForm() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState<{ number: string; duplicate: boolean } | null>(null);
   const [isRecording, setIsRecording] = useState(false);
-  const [voiceProcessing, setVoiceProcessing] = useState(false);
   const [voiceLanguage, setVoiceLanguage] = useState<"en" | "te">("en");
   const inputRef = useRef<HTMLInputElement>(null);
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
 
   async function lookUpPlaceName(captured: CapturedLocation) {
     setFindingPlaceName(true);
@@ -143,7 +144,7 @@ export function NewComplaintForm() {
           description,
           address: address.trim() || locationName || undefined,
           attachments: files,
-          location,
+          location: location ?? undefined,
         }),
       });
       const payload = await response.json();
@@ -164,7 +165,7 @@ export function NewComplaintForm() {
   }
 
   function startVoiceInput() {
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const SpeechRecognition = getSpeechRecognition();
     if (!SpeechRecognition) {
       setError("Voice input is not supported in your browser. Please use Chrome, Edge, or Safari.");
       return;
@@ -181,7 +182,7 @@ export function NewComplaintForm() {
         setError("");
       };
 
-      recognition.onresult = (event: any) => {
+      recognition.onresult = (event: SpeechResultEvent) => {
         for (let i = event.resultIndex; i < event.results.length; i++) {
           if (event.results[i].isFinal) {
             setDescription((prev) => (prev + " " + event.results[i][0].transcript).trim());
@@ -189,7 +190,7 @@ export function NewComplaintForm() {
         }
       };
 
-      recognition.onerror = (event: any) => {
+      recognition.onerror = (event: SpeechErrorEvent) => {
         setError(`Voice input error: ${event.error}`);
         setIsRecording(false);
       };
@@ -244,7 +245,7 @@ export function NewComplaintForm() {
               variant="outline"
               className="gap-2 px-3 py-1 text-xs"
               onClick={startVoiceInput}
-              disabled={voiceProcessing}
+              disabled={submitting}
             >
               {isRecording ? (
                 <>
