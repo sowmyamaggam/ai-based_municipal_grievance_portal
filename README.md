@@ -16,7 +16,13 @@ AI-based Municipal Grievance Portal is a production-oriented municipal grievance
 ## Setup
 
 1. Copy `.env.example` to `.env.local` and set at least `MONGODB_URI` and `AUTH_SECRET`.
-2. Start the local ML service and set `ML_WORK_TYPE_MODEL_URL` to its `/classify-work-type` endpoint. The checked-in text-model artifact supports work-type inference. Gemini 3.8 Flash (`GEMINI_API_KEY`, `GEMINI_MODEL`) is the validated fallback for uncertain predictions, voice analysis, and the optional assistant.
+2. Start the ML service in Docker from the project directory:
+
+   ```powershell
+   docker compose --env-file .env.local up --build -d ml-service
+   ```
+
+   The image trains and packages the text work-type model from the checked-in dataset during build. Set `ML_WORK_TYPE_MODEL_URL=http://127.0.0.1:8000/classify-work-type` and `ML_IMAGE_MODEL_URL=http://127.0.0.1:8000/predict` in `.env.local`. The image-classification model is optional; to enable it, put `municipal-image-model.keras` and its matching `municipal-image-model.classes.json` in `ml-service/image-models/`. The container is only published on localhost. Set `ML_SERVICE_TOKEN` in `.env.local` to protect requests between the app and service. Gemini 3.8 Flash (`GEMINI_API_KEY`, `GEMINI_MODEL`) is the validated fallback for uncertain predictions, voice analysis, and the optional assistant.
 3. Add Cloudinary values for persistent uploads. Without them, development stores files under `private-uploads` and serves them only through an authenticated route. Production requires Cloudinary (or another durable object-storage integration).
 4. Create the first administrator (the included local `.env.local` has development-only bootstrap values):
 
@@ -35,6 +41,8 @@ AI-based Municipal Grievance Portal is a production-oriented municipal grievance
 
 Citizen accounts are created from `/register` using username, mobile number, email, password, and password confirmation. Sign-in uses email and password. An administrator can create, assign to departments, activate, and deactivate officer accounts from **City overview → Officer management**. Roles are always enforced server-side.
 
+Stop the ML container with `docker compose stop ml-service`. Rebuild it after changing the ML source or training data with `docker compose --env-file .env.local up --build -d ml-service`.
+
 ## Quality checks
 
 ```powershell
@@ -48,4 +56,10 @@ The image-classification endpoint requires a separately trained `ml-service/arti
 
 ## Deployment
 
-Deploy to Vercel and configure the same environment values there. Use MongoDB Atlas network access controls, a strong `AUTH_SECRET`, Cloudinary upload restrictions, and least-privilege service credentials. Never commit `.env.local`.
+### Render free web service
+
+1. In Render, create a **Blueprint** for this repository and select `render.yaml`. It builds the Next.js app with `npm ci --include=dev && npm run build` and starts it with `npm start` on the free web-service plan.
+2. When prompted, provide `MONGODB_URI` for a MongoDB Atlas database. Render generates `AUTH_SECRET` for you. Allow the deployed service to connect to Atlas using an appropriate network-access rule and a least-privilege database user.
+3. Add `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET` in the Render service environment to keep complaint uploads persistent. The local ML service is not deployed by this blueprint; configure externally hosted `ML_WORK_TYPE_MODEL_URL` and `ML_IMAGE_MODEL_URL` only if you deploy that service separately. `GEMINI_API_KEY` is optional and enables AI fallback/chat features.
+
+Render's free web service can spin down after inactivity, so the first request after idle may be slow. Its local filesystem is ephemeral; do not rely on it for uploaded files or other persistent data. Never commit `.env.local` or production secrets.
