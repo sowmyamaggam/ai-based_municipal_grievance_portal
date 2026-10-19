@@ -41,7 +41,24 @@ export function requireSameOrigin(request: Request) {
   // own CSRF protection; application routes also validate the session/body.
   if (!origin) return null;
   try {
-    if (new URL(origin).origin !== new URL(request.url).origin) {
+    const requestUrl = new URL(request.url);
+    const allowedOrigins = new Set([requestUrl.origin]);
+
+    for (const value of [process.env.RENDER_EXTERNAL_URL, process.env.APP_URL, process.env.AUTH_URL]) {
+      if (value) allowedOrigins.add(new URL(value).origin);
+    }
+
+    const forwardedProto = request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim();
+    const protocol = forwardedProto === "https" || forwardedProto === "http" ? forwardedProto : requestUrl.protocol.slice(0, -1);
+    const hosts = [
+      request.headers.get("x-forwarded-host")?.split(",")[0]?.trim(),
+      request.headers.get("host")?.split(",")[0]?.trim(),
+    ];
+    for (const host of hosts) {
+      if (host) allowedOrigins.add(new URL(`${protocol}://${host}`).origin);
+    }
+
+    if (!allowedOrigins.has(new URL(origin).origin)) {
       return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
     }
   } catch {

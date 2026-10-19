@@ -2,52 +2,21 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
 import { AlertTriangle, BarChart3, Clock3, MapPinned, Star, Users } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Card } from "@/components/ui/card";
 import { ComplaintMap } from "@/components/complaint-map";
 import { ReportDownload } from "@/components/report-download";
+import type { AdminAnalytics } from "@/lib/admin-analytics";
 
 const ComplaintHeatmap = dynamic(
   () => import("@/components/complaint-heatmap").then((module) => module.ComplaintHeatmap),
   { ssr: false, loading: () => <div className="grid min-h-80 place-items-center rounded-xl bg-slate-100 text-sm text-slate-500">Loading map…</div> }
 );
 
-type Analytics = {
-  total: number;
-  statuses: { _id: string; count: number }[];
-  priorities: { _id: string; count: number }[];
-  categories: { _id: string; count: number }[];
-  departments: { _id: string; count: number; resolved: number }[];
-  trend: { _id: { year: number; month: number }; complaints: number }[];
-  averageResolutionHours: number;
-  satisfaction: { rating: number; count: number };
-  officers: number;
-  hotspots: { _id: { longitude: number; latitude: number; category: string }; count: number; complaints: string[] }[];
-  recentFeedback: { _id: string; complaintNumber: string; category: string; department: string; feedback: { rating: number; comment?: string; submittedAt?: string }; citizen?: { name?: string }; assignedOfficer?: { name?: string } }[];
-};
-
 const palette = ["#087d73", "#f5b642", "#4f46e5", "#e05d44", "#0f766e", "#7c3aed"];
 
-export function AdminDashboard() {
-  const [data, setData] = useState<Analytics | null>(null);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    fetch("/api/analytics")
-      .then(async (response) => {
-        const payload = await response.json();
-        if (!response.ok) throw new Error(payload.error || "Unable to load analytics");
-        return payload;
-      })
-      .then(setData)
-      .catch((reason) => setError(reason.message));
-  }, []);
-
-  if (error) return <p className="rounded-xl bg-red-50 p-4 text-sm text-red-800">{error}</p>;
-  if (!data) return <div className="grid min-h-80 place-items-center rounded-2xl border border-slate-200 bg-white text-sm text-slate-500">Loading city analytics...</div>;
-
+export function AdminDashboard({ data }: { data: AdminAnalytics }) {
   const status = data.statuses.map((item) => ({ name: item._id.replaceAll("_", " "), value: item.count }));
   const priority = data.priorities.map((item) => ({ name: item._id, value: item.count }));
   const trend = data.trend.map((item) => ({ label: new Date(item._id.year, item._id.month - 1).toLocaleDateString("en-IN", { month: "short" }), complaints: item.complaints }));

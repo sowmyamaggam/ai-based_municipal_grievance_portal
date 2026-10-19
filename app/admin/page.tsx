@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import { auth } from "@/auth";
 import { DashboardShell } from "@/components/dashboard-shell";
-import { AdminDashboard } from "@/components/admin-dashboard";
+import { AdminAnalyticsContent } from "./analytics-content";
 
 export default async function AdminPage() {
   const session = await auth();
@@ -22,7 +23,9 @@ export default async function AdminPage() {
         </p>
       </section>
       <div className="mt-7">
-        <AdminDashboard />
+        <Suspense fallback={<div className="grid min-h-80 place-items-center rounded-2xl border border-slate-200 bg-white text-sm text-slate-500" aria-live="polite">Loading city analytics...</div>}>
+          <AdminAnalyticsContent />
+        </Suspense>
       </div>
     </DashboardShell>
   );

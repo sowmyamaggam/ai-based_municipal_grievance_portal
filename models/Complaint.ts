@@ -86,6 +86,7 @@ const complaintSchema = new Schema(
 
 complaintSchema.index({ location: "2dsphere" });
 complaintSchema.index({ createdAt: -1, status: 1 });
+complaintSchema.index({ "feedback.submittedAt": -1 });
 complaintSchema.index({ department: 1, status: 1, createdAt: -1 });
 complaintSchema.index({ assignedOfficer: 1, status: 1, createdAt: -1 });
 
