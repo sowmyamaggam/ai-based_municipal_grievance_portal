@@ -124,5 +124,61 @@ export function CivicAssistant() {
   }
 
   const shellStyle = mounted ? { left: position.x, top: position.y } : { right: 20, bottom: 20 };
-  return <div className="fixed z-40" style={shellStyle}><button type="button" onPointerDown={beginDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag} onClick={() => { if (!movedDuringDrag.current) setOpen((current) => !current); }} className="grid h-[52px] w-[52px] touch-none place-items-center rounded-full bg-civic-600 text-white shadow-lg transition hover:bg-civic-700" aria-label={open ? "Close municipal portal assistant" : "Open municipal portal assistant"} title="Drag to move the assistant"><span className="absolute -left-1 -top-1 rounded-full bg-white/20 p-0.5" aria-hidden="true"><GripVertical size={12} /></span>{open ? <X /> : <Bot />}</button>{open && <section className="absolute flex h-[min(28rem,calc(100vh-2rem))] w-[min(23rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl" style={{ left: panel.left - position.x, top: panel.top - position.y }} aria-label="Municipal portal assistant"><header className="flex items-center gap-3 bg-civic-700 px-4 py-3 text-white"><Bot size={19} /><div><h2 className="font-bold">Municipal portal assistant</h2><p className="text-xs text-white/75">Private, account-aware help</p></div><p className="ml-auto text-[11px] font-medium text-white/70">Drag the round button to move</p></header><div ref={messageList} className="flex-1 space-y-3 overflow-y-auto p-4">{messages.map((item, index) => <p key={index} className={`max-w-[90%] rounded-2xl px-3 py-2.5 text-sm leading-5 ${item.from === "bot" ? "bg-slate-100 text-slate-700" : "ml-auto bg-civic-600 text-white"}`}>{item.text}</p>)}{loading && <p className="rounded-2xl bg-slate-100 px-3 py-2 text-sm text-slate-500">Thinking...</p>}</div><form className="flex gap-2 border-t border-slate-200 p-3" onSubmit={send}><Input value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Ask a question..." aria-label="Message the municipal portal assistant" /><Button type="submit" className="shrink-0 px-3" disabled={loading} aria-label="Send"><Send size={17} /></Button></form></section>}</div>;
+  return (
+    <div className="fixed z-40" style={shellStyle}>
+      <button
+        type="button"
+        onPointerDown={beginDrag}
+        onPointerMove={moveDrag}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onClick={() => {
+          if (!movedDuringDrag.current) setOpen((current) => !current);
+        }}
+        className="grid h-[52px] w-[52px] touch-none place-items-center rounded-full bg-civic-600 text-white shadow-lg transition hover:bg-civic-700"
+        aria-label={open ? "Close municipal portal assistant" : "Open municipal portal assistant"}
+        title="Drag to move the assistant"
+      >
+        <span className="absolute -left-1 -top-1 rounded-full bg-white/20 p-0.5" aria-hidden="true"><GripVertical size={12} /></span>
+        {open ? <X /> : <Bot />}
+      </button>
+      {open && (
+        <section
+          className="absolute flex h-[min(28rem,calc(100vh-2rem))] w-[min(23rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl"
+          style={{ left: panel.left - position.x, top: panel.top - position.y }}
+          aria-label="Municipal portal assistant"
+        >
+          <header className="flex items-center gap-3 bg-civic-700 px-4 py-3 text-white">
+            <Bot size={19} />
+            <div>
+              <h2 className="font-bold">Municipal portal assistant</h2>
+              <p className="text-xs text-white/75">Private, account-aware help</p>
+            </div>
+            <p className="ml-auto hidden text-[11px] font-medium text-white/70 sm:block">Drag the round button to move</p>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="rounded-lg p-1 text-white/80 hover:bg-white/15 hover:text-white"
+              aria-label="Close municipal portal assistant"
+              title="Close chat"
+            >
+              <X size={20} />
+            </button>
+          </header>
+          <div ref={messageList} className="flex-1 space-y-3 overflow-y-auto p-4">
+            {messages.map((item, index) => (
+              <p key={index} className={`max-w-[90%] rounded-2xl px-3 py-2.5 text-sm leading-5 ${item.from === "bot" ? "bg-slate-100 text-slate-700" : "ml-auto bg-civic-600 text-white"}`}>
+                {item.text}
+              </p>
+            ))}
+            {loading && <p className="rounded-2xl bg-slate-100 px-3 py-2 text-sm text-slate-500">Thinking...</p>}
+          </div>
+          <form className="flex gap-2 border-t border-slate-200 p-3" onSubmit={send}>
+            <Input value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Ask a question..." aria-label="Message the municipal portal assistant" />
+            <Button type="submit" className="shrink-0 px-3" disabled={loading} aria-label="Send"><Send size={17} /></Button>
+          </form>
+        </section>
+      )}
+    </div>
+  );
 }
