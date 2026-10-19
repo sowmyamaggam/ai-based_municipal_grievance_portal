@@ -22,7 +22,7 @@ AI-based Municipal Grievance Portal is a production-oriented municipal grievance
 
    ```powershell
    $env:SEED_ADMIN_PHONE="+919876543210"
-   $env:SEED_ADMIN_EMAIL="admin@test.com"
+   $env:SEED_ADMIN_EMAIL="admin@gmail.com"
    $env:SEED_ADMIN_PASSWORD="admin123"
    npm.cmd run seed
    ```
